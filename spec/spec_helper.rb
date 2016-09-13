@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'fareharbor_external_api'
+require './lib/fare_harbor'
 require 'webmock'
 require 'vcr'
 
