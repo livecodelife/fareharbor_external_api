@@ -49,7 +49,7 @@ describe FareHarbor::Affiliate::Companies do
     end
   end
 
-  it "retrieves all availabilities by a range of dates for specific item" do
+  it 'retrieves all availabilities by a range of dates for specific item' do
     VCR.use_cassette('companies#availabilities_by_date_range') do
       availabilities_hash = FareHarbor::Affiliate::Companies.availabilities_by_date_range('sharktourshawaii', '1108', '2016-11-14', '2016-11-17')
       availabilities = availabilities_hash['availabilities']
@@ -62,6 +62,18 @@ describe FareHarbor::Affiliate::Companies do
       expect(availability['end_at']).to eq '2016-11-17T14:30:00-1000'
       expect(availability['capacity']).to eq 18
       expect(availability['pk']).to eq 391217
+    end
+  end
+
+  it 'retrieves specific availability for company' do
+    VCR.use_cassette('companies#availability') do
+      availability_hash = FareHarbor::Affiliate::Companies.availability('bodyglove', '70050')
+      availability = availability_hash['availability']
+
+      expect(availability_hash.class).to eq Hash
+      expect(availability.class).to eq Hash
+      expect(availability['capacity']).to eq 120
+      expect(availability['start_at']).to eq '2016-11-24T08:00:00-1000'
     end
   end
 end
