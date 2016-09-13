@@ -1,53 +1,33 @@
 require 'fareharbor_external_api/version'
 require 'faraday'
+require 'fare_harbor_service'
 
 module FareHarbor
   module Affiliate
     class Companies
 
-      def self.all
-        connection = Faraday.new('https://demo.fareharbor.com/api/external/v1/')
-        connection.params[:'api-app'] = ENV['API_APP_KEY']
-        connection.params[:'api-user'] = ENV['API_USER_KEY']
+      def self.service
+        FareHarborService.new
+      end
 
-        response = connection.get 'companies/'
-        JSON.parse(response.body)
+      def self.all
+        service.get_companies
       end
 
       def self.items(company_name)
-        connection = Faraday.new('https://demo.fareharbor.com/api/external/v1/')
-        connection.params[:'api-app'] = ENV['API_APP_KEY']
-        connection.params[:'api-user'] = ENV['API_USER_KEY']
-
-        response = connection.get "companies/#{company_name}/items/"
-        JSON.parse(response.body)
+        service.get_items(company_name)
       end
 
       def self.availabilities_by_date(name, id, date)
-        connection = Faraday.new('https://demo.fareharbor.com/api/external/v1/')
-        connection.params[:'api-app'] = ENV['API_APP_KEY']
-        connection.params[:'api-user'] = ENV['API_USER_KEY']
-
-        response = connection.get "companies/#{name}/items/#{id}/minimal/availabilities/date/#{date}/"
-        JSON.parse(response.body)
+        service.get_availabilities_by_date(name, id, date)
       end
 
       def self.availabilities_by_date_range(name, id, start_date, end_date)
-        connection = Faraday.new('https://demo.fareharbor.com/api/external/v1/')
-        connection.params[:'api-app'] = ENV['API_APP_KEY']
-        connection.params[:'api-user'] = ENV['API_USER_KEY']
-
-        response = connection.get "companies/#{name}/items/#{id}/minimal/availabilities/date-range/#{start_date}/#{end_date}/"
-        JSON.parse(response.body)
+        service.get_availabilities_by_date_range(name, id, start_date, end_date)
       end
 
       def self.availability(company_name, id)
-        connection = Faraday.new('https://demo.fareharbor.com/api/external/v1/')
-        connection.params[:'api-app'] = ENV['API_APP_KEY']
-        connection.params[:'api-user'] = ENV['API_USER_KEY']
-
-        response = connection.get "companies/#{company_name}/availabilities/#{id}/"
-        JSON.parse(response.body)
+        service.get_availability(company_name, id)
       end
     end
   end
