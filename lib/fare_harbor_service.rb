@@ -11,23 +11,28 @@ class FareHarborService
     parse(response)
   end
 
-  def get_items(company_name)
-    response = connection.get "companies/#{company_name}/items/"
+  def get_items(company_shortname)
+    response = connection.get "companies/#{company_shortname}/items/"
     parse(response)
   end
 
-  def get_availabilities_by_date(name, id, date)
-    response = connection.get "companies/#{name}/items/#{id}/minimal/availabilities/date/#{date}/"
+  def get_availabilities_by_date(company_shortname, id, date)
+    response = connection.get "companies/#{company_shortname}/items/#{id}/minimal/availabilities/date/#{date}/"
     parse(response)
   end
 
-  def get_availabilities_by_date_range(name, id, start_date, end_date)
-    response = connection.get "companies/#{name}/items/#{id}/minimal/availabilities/date-range/#{start_date}/#{end_date}/"
+  def get_availabilities_by_date_range(company_shortname, id, start_date, end_date)
+    response = connection.get "companies/#{company_shortname}/items/#{id}/minimal/availabilities/date-range/#{start_date}/#{end_date}/"
     parse(response)
   end
 
-  def get_availability(company_name, id)
-    response = connection.get "companies/#{company_name}/availabilities/#{id}/"
+  def get_availability(company_shortname, id)
+    response = connection.get "companies/#{company_shortname}/availabilities/#{id}/"
+    parse(response)
+  end
+
+  def get_booking(booking_hash)
+    response = connection.get "companies/#{booking_hash[:company_shortname]}/bookings/#{booking_hash[:uuid]}/"
     parse(response)
   end
 
