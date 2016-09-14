@@ -129,12 +129,18 @@ describe FareHarbor::Affiliate::Company do
         note: 'Optional booking note',
         voucher_number: 'VN-123456'
       )
-      require "pry"; binding.pry
       booking = booking_hash['booking']
       status = booking['status']
+      customers = booking['customers']
+      contact_info = booking['contact']
 
       expect(booking_hash.class).to eq Hash
       expect(status).to eq 'booked'
+      expect(customers.class).to eq Array
+      expect(customers.first.class).to eq Hash
+      expect(contact_info['phone']).to eq '415-789-4563'
+      expect(contact_info['email']).to eq 'johndoe@example.com'
+      expect(contact_info['name']).to eq 'John Doe'
     end
   end
 end

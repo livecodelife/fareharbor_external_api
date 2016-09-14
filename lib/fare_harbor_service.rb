@@ -47,11 +47,11 @@ class FareHarborService
   end
 
   def post_booking(booking_hash)
-    booking_data = format_booking_body(booking_hash)
+    booking_data = format_booking_body(booking_hash).to_json
     response = connection.post do |req|
       req.url "companies/#{booking_hash[:company_shortname]}/availabilities/#{booking_hash[:pk]}/bookings/"
+      req.headers['Content-Type'] = 'application/json'
       req.body = booking_data
-      require "pry"; binding.pry
     end
     parse(response)
   end
