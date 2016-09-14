@@ -78,9 +78,9 @@ note that this may include companies that have no bookable availabilities.
 
 Returns an array of `Company` objects.
 
-Example method:
+Method:
 
-    `FareHarbor::Affiliate::Company.all`
+    FareHarbor::Affiliate::Company.all
 
 Example response:
 
