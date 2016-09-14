@@ -46,6 +46,35 @@ class FareHarborService
     parse(response)
   end
 
+  def post_booking(booking_hash)
+    booking_data = format_booking_body(booking_hash).to_json
+    response = connection.post do |req|
+      req.url "companies/#{booking_hash[:company_shortname]}/availabilities/#{booking_hash[:pk]}/bookings/"
+      req.headers['Content-Type'] = 'application/json'
+      req.body = booking_data
+    end
+    parse(response)
+  end
+
+  def format_booking_body(booking_hash)
+    {
+      "voucher_number": booking_hash[:voucher_number],
+      "contact": {
+        "name": booking_hash[:name],
+        "phone": booking_hash[:phone],
+        "email": booking_hash[:email]
+      },
+      "customers": customer_types(booking_hash[:customer_type_rates]),
+      "note": "Optional booking note"
+    }
+  end
+
+  def customer_types(types)
+    types.map do |type|
+      {"customer_type_rate" => type}
+    end
+  end
+
 private
 
   def connection

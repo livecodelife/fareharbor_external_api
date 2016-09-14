@@ -41,6 +41,10 @@ module FareHarbor
       def self.availability_lodgings(availability_lodgings_hash)
         service.get_availability_lodgings(availability_lodgings_hash)
       end
+
+      def self.create_booking(booking_hash)
+        service.post_booking(booking_hash)
+      end
     end
   end
 end
