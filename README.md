@@ -20,9 +20,42 @@ Or install it yourself as:
 
     $ gem install fareharbor_external_api
 
+## Setup: Keys
+
+#### Bash Profile
+
+If you want to set your keys inside your bash profile:
+
+    .bash_profile
+
+    export FAREHARBOR_API_APP_KEY=<your_api_app_key>
+    export FAREHARBOR_API_USER_KEY=<your_api_user_key>
+
+Then in your command line, enter
+
+    source ~/.bash_profile
+
+#### Figaro
+
+If you are using Figaro, follow the directions to set your keys [here.](https://github.com/laserlemon/figaro#example)
+
 ## Usage
 
-TODO: Write usage instructions here
+### Paths
+
+    All endpoints are rooted at https://fareharbor.com/api/external/v1/.
+
+    GET /companies/
+    GET /companies/<shortname>/lodgings/
+    GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
+    GET /companies/<shortname>/items/
+    GET /companies/<shortname>/items/<item.pk>/availabilities/date/<date>/
+    GET /companies/<shortname>/items/<item.pk>/availabilities/date-range/<start-date>/<end-date>/
+    GET /companies/<shortname>/availabilities/<Availability.pk>/
+    POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/
+    GET /companies/<shortname>/bookings/<Booking.uuid>/
+    DELETE /companies/<shortname>/bookings/<Booking.uuid>/
+    POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/validate/
 
 ## Development
 
@@ -38,4 +71,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
