@@ -22,7 +22,7 @@ describe FareHarbor::Affiliate::Company do
 
   it 'retrieves all items for specific company' do
     VCR.use_cassette('companies#items') do
-      items_hash = FareHarbor::Affiliate::Company.items('islandsailing')
+      items_hash = FareHarbor::Affiliate::Company.items(company_shortname: 'islandsailing')
       items = items_hash['items']
       item = items.first
 
@@ -35,7 +35,7 @@ describe FareHarbor::Affiliate::Company do
 
   it 'retrieves all availabilities by date for specific item' do
     VCR.use_cassette('companies#availabilities_by_date') do
-      availabilities_hash = FareHarbor::Affiliate::Company.availabilities_by_date('sharktourshawaii', '1108', '2016-11-14')
+      availabilities_hash = FareHarbor::Affiliate::Company.availabilities_by_date(company_shortname: 'sharktourshawaii', pk: 1108, date: '2016-11-14')
       availabilities = availabilities_hash['availabilities']
       availability = availabilities.first
 
@@ -51,7 +51,7 @@ describe FareHarbor::Affiliate::Company do
 
   it 'retrieves all availabilities by a range of dates for specific item' do
     VCR.use_cassette('companies#availabilities_by_date_range') do
-      availabilities_hash = FareHarbor::Affiliate::Company.availabilities_by_date_range('sharktourshawaii', '1108', '2016-11-14', '2016-11-17')
+      availabilities_hash = FareHarbor::Affiliate::Company.availabilities_by_date_range(company_shortname: 'sharktourshawaii', pk: 1108, start_date: '2016-11-14', end_date: '2016-11-17')
       availabilities = availabilities_hash['availabilities']
       availability = availabilities.last
 
@@ -67,7 +67,7 @@ describe FareHarbor::Affiliate::Company do
 
   it 'retrieves specific availability for company' do
     VCR.use_cassette('companies#availability') do
-      availability_hash = FareHarbor::Affiliate::Company.availability('bodyglove', '70050')
+      availability_hash = FareHarbor::Affiliate::Company.availability(company_shortname: 'bodyglove', pk: 70050)
       availability = availability_hash['availability']
 
       expect(availability_hash.class).to eq Hash

@@ -14,20 +14,20 @@ module FareHarbor
         service.get_companies
       end
 
-      def self.items(company_shortname)
-        service.get_items(company_shortname)
+      def self.items(items_hash)
+        service.get_items(items_hash)
       end
 
-      def self.availabilities_by_date(company_shortname, id, date)
-        service.get_availabilities_by_date(company_shortname, id, date)
+      def self.availabilities_by_date(availabilities_by_date_hash)
+        service.get_availabilities_by_date(availabilities_by_date_hash)
       end
 
-      def self.availabilities_by_date_range(company_shortname, id, start_date, end_date)
-        service.get_availabilities_by_date_range(company_shortname, id, start_date, end_date)
+      def self.availabilities_by_date_range(availabilities_by_date_range_hash)
+        service.get_availabilities_by_date_range(availabilities_by_date_range_hash)
       end
 
-      def self.availability(company_shortname, id)
-        service.get_availability(company_shortname, id)
+      def self.availability(availability_hash)
+        service.get_availability(availability_hash)
       end
 
       def self.booking(booking_hash)
