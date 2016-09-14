@@ -100,7 +100,20 @@ describe FareHarbor::Affiliate::Company do
       expect(lodging.class).to eq Hash
       expect(lodging['name']).to eq 'Alii Cove'
       expect(lodging['pk']).to eq 555
+    end
+  end
 
+  it "retrieves lodgings for an availability" do
+    VCR.use_cassette('company#availability_lodgings') do
+      availability_lodgings_hash = FareHarbor::Affiliate::Company.availability_lodgings(company_shortname: 'bodyglove', pk: 70050)
+      availability_lodgings = availability_lodgings_hash['lodgings']
+      availability_lodging = availability_lodgings.last
+
+      expect(availability_lodgings_hash.class).to eq Hash
+      expect(availability_lodgings.class).to eq Array
+      expect(availability_lodging.class).to eq Hash
+      expect(availability_lodging['name']).to eq 'WorldMark by Wyndham'
+      expect(availability_lodging['pk']).to eq 637
     end
   end
 end
