@@ -11,23 +11,23 @@ class FareHarborService
     parse(response)
   end
 
-  def get_items(company_shortname)
-    response = connection.get "companies/#{company_shortname}/items/"
+  def get_items(items_hash)
+    response = connection.get "companies/#{items_hash[:company_shortname]}/items/"
     parse(response)
   end
 
-  def get_availabilities_by_date(company_shortname, id, date)
-    response = connection.get "companies/#{company_shortname}/items/#{id}/minimal/availabilities/date/#{date}/"
+  def get_availabilities_by_date(availabilities_by_date_hash)
+    response = connection.get "companies/#{availabilities_by_date_hash[:company_shortname]}/items/#{availabilities_by_date_hash[:pk]}/minimal/availabilities/date/#{availabilities_by_date_hash[:date]}/"
     parse(response)
   end
 
-  def get_availabilities_by_date_range(company_shortname, id, start_date, end_date)
-    response = connection.get "companies/#{company_shortname}/items/#{id}/minimal/availabilities/date-range/#{start_date}/#{end_date}/"
+  def get_availabilities_by_date_range(availabilities_by_date_range_hash)
+    response = connection.get "companies/#{availabilities_by_date_range_hash[:company_shortname]}/items/#{availabilities_by_date_range_hash[:pk]}/minimal/availabilities/date-range/#{availabilities_by_date_range_hash[:start_date]}/#{availabilities_by_date_range_hash[:end_date]}/"
     parse(response)
   end
 
-  def get_availability(company_shortname, id)
-    response = connection.get "companies/#{company_shortname}/availabilities/#{id}/"
+  def get_availability(availability_hash)
+    response = connection.get "companies/#{availability_hash[:company_shortname]}/availabilities/#{availability_hash[:pk]}/"
     parse(response)
   end
 
