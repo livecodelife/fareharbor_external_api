@@ -2,8 +2,8 @@ class FareHarborService
 
   def initialize
     @_connection = Faraday.new('https://demo.fareharbor.com/api/external/v1/')
-    @_connection.params[:'api-app'] = ENV['API_APP_KEY']
-    @_connection.params[:'api-user'] = ENV['API_USER_KEY']
+    @_connection.params[:'api-app'] = ENV['FAREHARBOR_API_APP_KEY']
+    @_connection.params[:'api-user'] = ENV['FAREHARBOR_API_USER_KEY']
   end
 
   def get_companies
