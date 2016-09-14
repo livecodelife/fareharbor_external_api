@@ -78,7 +78,7 @@ describe FareHarbor::Affiliate::Company do
   end
 
   it "retrieves a specific booking for a company's item" do
-    VCR.use_cassette('companies#getbooking') do
+    VCR.use_cassette('companies#booking') do
       booking_hash = FareHarbor::Affiliate::Company.booking(company_shortname: 'bodyglove', uuid: '85ab9e4c-03fd-4bd4-af67-4946aa426c79')
       booking = booking_hash['booking']
 
@@ -86,6 +86,21 @@ describe FareHarbor::Affiliate::Company do
       expect(booking.class).to eq Hash
       expect(booking['uuid']).to eq '85ab9e4c-03fd-4bd4-af67-4946aa426c79'
       expect(booking['status']).to_not eq nil
+    end
+  end
+
+  it "retrieves lodgings for a company" do
+    VCR.use_cassette('companies#lodgings') do
+      lodgings_hash = FareHarbor::Affiliate::Company.lodgings(company_shortname: 'bodyglove')
+      lodgings = lodgings_hash['lodgings']
+      lodging = lodgings.first
+
+      expect(lodgings_hash.class).to eq Hash
+      expect(lodgings.class).to eq Array
+      expect(lodging.class).to eq Hash
+      expect(lodging['name']).to eq 'Alii Cove'
+      expect(lodging['pk']).to eq 555
+
     end
   end
 end

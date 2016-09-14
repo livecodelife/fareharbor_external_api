@@ -33,6 +33,10 @@ module FareHarbor
       def self.booking(booking_hash)
         service.get_booking(booking_hash)
       end
+
+      def self.lodgings(lodgings_hash)
+        service.get_lodgings(lodgings_hash)
+      end
     end
   end
 end

@@ -36,6 +36,11 @@ class FareHarborService
     parse(response)
   end
 
+  def get_lodgings(lodgings_hash)
+    response = connection.get "companies/#{lodgings_hash[:company_shortname]}/lodgings/"
+    parse(response)
+  end
+
 private
 
   def connection
