@@ -22,6 +22,8 @@ Or install it yourself as:
 
 ## Setup: Keys
 
+To get started with the FareHarbor External API Gem, you will need to request access keys from FareHarbor. Please contact <support@fareharbor.com> to request access to the FareHarbor External API.
+
 #### Bash Profile
 
 If you want to set your keys inside your bash profile:
@@ -39,23 +41,90 @@ Then in your command line, enter
 
 If you are using Figaro, follow the directions to set your keys [here.](https://github.com/laserlemon/figaro#example)
 
+In your application.yml file, set your keys like this:
+
+FAREHARBOR_API_APP_KEY=<your_api_app_key>
+FAREHARBOR_API_USER_KEY=<your_api_user_key>
+
+Make sure you add application.yml to your .gitignore file to keep your keys hidden
+
 ## Usage
+
+After installing the gem and setting your keys, you can access specific endpoint data by calling `FareHarbor::Affiliate::Company.<specify method here>`
+
+For ease of use, it is recommended that you save the above class as a variable.
+
+`affiliate = FareHarbor::Affiliate::Company`
+
+Now you can call the specified endpoint methods on the affiliate variable. For example:
+
+`affiliate.items(company_shortname: <your company shortname here>)`
+
+Is the equivalent of:
+
+`FareHarbor::Affiliate::Company.items(company_shortname: <your company shortname here>)`
+
 
 ### Paths
 
-    All endpoints are rooted at https://fareharbor.com/api/external/v1/.
+All endpoints are rooted at `https://fareharbor.com/api/external/v1/`.
 
-    GET /companies/
+Use the methods below to access JSON data corresponding with each endpoint:
+
+`GET /companies/`
+
+Returns a list of all companies for which you have permission to create bookings;
+note that this may include companies that have no bookable availabilities.
+
+Returns an array of `Company` objects.
+
+Example method:
+
+    `FareHarbor::Affiliate::Company.all`
+
+Example response:
+
+    {
+      "companies": [
+        {
+          "shortname": "hawaiianadventures",
+          "name": "Hawaiian Adventures"
+        }, {
+          "shortname": "surflessonshawaii",
+          "name": "Surf Lessons Hawaii"
+        }
+      ]
+    }
+
     GET /companies/<shortname>/lodgings/
+    FareHarbor::Affiliate::Company.lodgings
+
     GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
+    FareHarbor::Affiliate::Company.availability_lodgings
+
     GET /companies/<shortname>/items/
+    FareHarbor::Affiliate::Company.items
+
     GET /companies/<shortname>/items/<item.pk>/availabilities/date/<date>/
+    FareHarbor::Affiliate::Company.availabilities_by_date
+
     GET /companies/<shortname>/items/<item.pk>/availabilities/date-range/<start-date>/<end-date>/
+    FareHarbor::Affiliate::Company.availabilities_by_date_range
+
     GET /companies/<shortname>/availabilities/<Availability.pk>/
+    FareHarbor::Affiliate::Company.availabilities
+
     POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/
+    FareHarbor::Affiliate::Company
+
     GET /companies/<shortname>/bookings/<Booking.uuid>/
+    FareHarbor::Affiliate::Company.bookings
+
     DELETE /companies/<shortname>/bookings/<Booking.uuid>/
+    FareHarbor::Affiliate::Company
+
     POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/validate/
+    FareHarbor::Affiliate::Company
 
 ## Development
 
