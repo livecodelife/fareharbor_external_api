@@ -77,7 +77,7 @@ describe FareHarbor::Affiliate::Company do
     end
   end
 
-  it "retrieves a specific booking for a company's item" do
+  it 'retrieves a specific booking for a companys item' do
     VCR.use_cassette('companies#booking') do
       booking_hash = FareHarbor::Affiliate::Company.booking(company_shortname: 'bodyglove', uuid: '85ab9e4c-03fd-4bd4-af67-4946aa426c79')
       booking = booking_hash['booking']
@@ -89,7 +89,7 @@ describe FareHarbor::Affiliate::Company do
     end
   end
 
-  it "retrieves lodgings for a company" do
+  it 'retrieves lodgings for a company' do
     VCR.use_cassette('companies#lodgings') do
       lodgings_hash = FareHarbor::Affiliate::Company.lodgings(company_shortname: 'bodyglove')
       lodgings = lodgings_hash['lodgings']
@@ -103,7 +103,7 @@ describe FareHarbor::Affiliate::Company do
     end
   end
 
-  it "retrieves lodgings for an availability" do
+  it 'retrieves lodgings for an availability' do
     VCR.use_cassette('company#availability_lodgings') do
       availability_lodgings_hash = FareHarbor::Affiliate::Company.availability_lodgings(company_shortname: 'bodyglove', pk: 70050)
       availability_lodgings = availability_lodgings_hash['lodgings']
@@ -114,6 +114,27 @@ describe FareHarbor::Affiliate::Company do
       expect(availability_lodging.class).to eq Hash
       expect(availability_lodging['name']).to eq 'WorldMark by Wyndham'
       expect(availability_lodging['pk']).to eq 637
+    end
+  end
+
+  it 'creates a booking' do
+    VCR.use_cassette('company#create_booking') do
+      booking_hash = FareHarbor::Affiliate::Company.create_booking(
+        pk: 70043,
+        company_shortname: 'bodyglove',
+        name: 'John Doe',
+        phone: '415-789-4563',
+        email: 'johndoe@example.com',
+        customer_type_rates: [149126, 149126],
+        note: 'Optional booking note',
+        voucher_number: 'VN-123456'
+      )
+      require "pry"; binding.pry
+      booking = booking_hash['booking']
+      status = booking['status']
+
+      expect(booking_hash.class).to eq Hash
+      expect(status).to eq 'booked'
     end
   end
 end
