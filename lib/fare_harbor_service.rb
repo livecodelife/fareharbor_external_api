@@ -56,6 +56,21 @@ class FareHarborService
     parse(response)
   end
 
+  def post_verify_booking(booking_hash)
+    booking_data = format_booking_body(booking_hash).to_json
+    response = connection.post do |req|
+      req.url "companies/#{booking_hash[:company_shortname]}/availabilities/#{booking_hash[:pk]}/bookings/validate/"
+      req.headers['Content-Type'] = 'application/json'
+      req.body = booking_data
+    end
+    parse(response)
+  end
+
+  def delete_booking(booking_hash)
+    response = connection.delete "companies/#{booking_hash[:company_shortname]}/bookings/#{booking_hash[:uuid]}/"
+    parse(response)
+  end
+
   def format_booking_body(booking_hash)
     {
       "voucher_number": booking_hash[:voucher_number],
