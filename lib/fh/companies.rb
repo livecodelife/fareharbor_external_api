@@ -6,7 +6,10 @@ module FH
     end
 
     def self.all
-      service.get_companies
+      companies_hash = service.get_companies
+      companies_hash[:companies].map do |company|
+        FH::Company.new(company)
+      end
     end
 
     def self.find(shortname)

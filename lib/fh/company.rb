@@ -7,12 +7,13 @@ module FH
       @shortname = company[:shortname]
     end
 
-    def self.service
+    def service
       FareHarborService.new
     end
 
-    def items(items_hash)
-      service.get_items(items_hash)
+    def items
+      all_items = service.get_items(self.shortname)
+      all_items[:items].map { |item| FH::Company::Item.new(item) } 
     end
 
     def self.availabilities_by_date(availabilities_by_date_hash)

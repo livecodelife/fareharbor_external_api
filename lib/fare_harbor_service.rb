@@ -10,14 +10,11 @@ class FareHarborService
 
   def get_companies
     response = connection.get 'companies/'
-    companies_hash = parse(response)
-    companies_hash[:companies].map do |company|
-      FH::Company.new(company)
-    end
+    parse(response)
   end
 
-  def get_items(items_hash)
-    response = connection.get "companies/#{items_hash[:company_shortname]}/items/"
+  def get_items(shortname)
+    response = connection.get "companies/#{shortname}/items/"
     parse(response)
   end
 
