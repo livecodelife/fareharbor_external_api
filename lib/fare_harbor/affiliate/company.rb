@@ -1,5 +1,3 @@
-require './lib/fareharbor_external_api'
-
 module FareHarbor
   module Affiliate
     class Company
