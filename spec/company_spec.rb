@@ -21,7 +21,7 @@ describe FH::Company do
   # end
 
   it 'retrieves all items for specific company' do
-    VCR.use_cassette('companies#items') do
+    VCR.use_cassette('company#items') do
       company = FH::Companies.find('islandsailing')
       items = company.items
       item = items.first
@@ -77,10 +77,10 @@ describe FH::Company do
     end
   end
 
-  xit 'retrieves a specific booking for a companys item' do
-    VCR.use_cassette('companies#booking') do
-      booking_hash = FH::Company.booking(company_shortname: 'bodyglove', uuid: '85ab9e4c-03fd-4bd4-af67-4946aa426c79')
-      booking = booking_hash['booking']
+  it 'retrieves a specific booking for a companys item' do
+    VCR.use_cassette('company#booking') do
+      company = FH::Companies.find('bodyglove')
+      booking = company.booking(uuid: '85ab9e4c-03fd-4bd4-af67-4946aa426c79')
 
       expect(booking_hash.class).to eq Hash
       expect(booking.class).to eq Hash
