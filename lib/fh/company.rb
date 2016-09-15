@@ -24,8 +24,9 @@ module FH
       service.get_availabilities_by_date_range(availabilities_by_date_range_hash)
     end
 
-    def self.availability(availability_hash)
-      service.get_availability(availability_hash)
+    def availability(pk)
+      availability = service.get_availability(shortname, pk)
+      FH::Company::Availability.new(availability[:availability])
     end
 
     def self.booking(booking_hash)
