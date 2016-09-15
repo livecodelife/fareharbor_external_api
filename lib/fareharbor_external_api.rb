@@ -1,5 +1,7 @@
 require 'json'
 require 'faraday'
 require 'fareharbor_external_api/version'
-require 'fare_harbor/affiliate/company'
+require 'fh/company'
+require 'fh/company/item'
+require 'fh/companies'
 require 'fare_harbor_service'

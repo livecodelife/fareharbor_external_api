@@ -1,7 +1,7 @@
 require 'simplecov'
 SimpleCov.start
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require './lib/fare_harbor/affiliate/company'
+require './lib/fareharbor_external_api'
 require 'webmock'
 require 'vcr'
 

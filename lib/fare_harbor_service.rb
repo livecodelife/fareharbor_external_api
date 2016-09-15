@@ -1,3 +1,5 @@
+require 'fh/company'
+
 class FareHarborService
 
   def initialize
@@ -11,8 +13,8 @@ class FareHarborService
     parse(response)
   end
 
-  def get_items(items_hash)
-    response = connection.get "companies/#{items_hash[:company_shortname]}/items/"
+  def get_items(shortname)
+    response = connection.get "companies/#{shortname}/items/"
     parse(response)
   end
 
@@ -97,6 +99,6 @@ private
   end
 
   def parse(response)
-    JSON.parse(response.body)
+    JSON.parse(response.body, symbolize_names: true)
   end
 end
