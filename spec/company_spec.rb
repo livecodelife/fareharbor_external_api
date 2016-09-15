@@ -74,7 +74,8 @@ describe FH::Company do
 
   it 'retrieves lodgings for a company' do
     VCR.use_cassette('company#lodgings') do
-      lodgings = FH::Companies.find('bodyglove').lodgings
+      company = FH::Companies.find('bodyglove')
+      lodgings = company.lodgings
       lodging = lodgings.first
 
       expect(lodgings.class).to eq Array
@@ -84,17 +85,16 @@ describe FH::Company do
     end
   end
 
-  xit 'retrieves lodgings for an availability' do
+  it 'retrieves lodgings for an availability' do
     VCR.use_cassette('company#availability_lodgings') do
-      availability_lodgings_hash = FH::Company.availability_lodgings(company_shortname: 'bodyglove', pk: 70050)
-      availability_lodgings = availability_lodgings_hash['lodgings']
+      company = FH::Companies.find('bodyglove')
+      availability_lodgings = company.availability_lodgings(70050)
       availability_lodging = availability_lodgings.last
 
-      expect(availability_lodgings_hash.class).to eq Hash
       expect(availability_lodgings.class).to eq Array
-      expect(availability_lodging.class).to eq Hash
-      expect(availability_lodging['name']).to eq 'WorldMark by Wyndham'
-      expect(availability_lodging['pk']).to eq 637
+      expect(availability_lodging.class).to eq FH::Company::Lodging
+      expect(availability_lodging.name).to eq 'WorldMark by Wyndham'
+      expect(availability_lodging.pk).to eq 637
     end
   end
 
