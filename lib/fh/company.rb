@@ -12,13 +12,13 @@ module FH
     end
 
     def items
-
       all_items = service.get_items(shortname)
       all_items[:items].map { |item| FH::Company::Item.new(item) }
     end
 
-    def self.availabilities_by_date(availabilities_by_date_hash)
-      service.get_availabilities_by_date(availabilities_by_date_hash)
+    def availabilities_by_date(availability_data)
+      availabilities = service.get_availabilities_by_date(shortname, availability_data)
+      availabilities[:availabilities].map { |availability| FH::Company::Availability.new(availability) }
     end
 
     def self.availabilities_by_date_range(availabilities_by_date_range_hash)
