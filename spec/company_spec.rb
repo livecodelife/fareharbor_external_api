@@ -88,17 +88,15 @@ describe FH::Company do
     end
   end
 
-  xit 'retrieves lodgings for a company' do
+  it 'retrieves lodgings for a company' do
     VCR.use_cassette('companies#lodgings') do
-      lodgings_hash = FH::Company.lodgings(company_shortname: 'bodyglove')
-      lodgings = lodgings_hash['lodgings']
+      lodgings = FH::Companies.find('bodyglove').lodgings
       lodging = lodgings.first
 
-      expect(lodgings_hash.class).to eq Hash
       expect(lodgings.class).to eq Array
-      expect(lodging.class).to eq Hash
-      expect(lodging['name']).to eq 'Alii Cove'
-      expect(lodging['pk']).to eq 555
+      expect(lodging.class).to eq FH::Company::Lodging
+      expect(lodging.name).to eq 'Alii Cove'
+      expect(lodging.pk).to eq 555
     end
   end
 

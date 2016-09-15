@@ -33,8 +33,9 @@ module FH
       service.get_booking(booking_hash)
     end
 
-    def self.lodgings(lodgings_hash)
-      service.get_lodgings(lodgings_hash)
+    def lodgings
+      all_lodgings = service.get_lodgings(shortname)
+      all_lodgings[:lodgings].map { |lodging| FH::Company::Lodging.new(lodging) }
     end
 
     def self.availability_lodgings(availability_lodgings_hash)
