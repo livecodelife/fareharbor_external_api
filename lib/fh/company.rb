@@ -28,8 +28,8 @@ module FH
       service.get_availability(availability_hash)
     end
 
-    def booking(booking_hash)
-      booking = service.get_booking(shortname, booking_hash)
+    def booking(uuid)
+      booking = service.get_booking(shortname, uuid)
       FH::Company::Booking.new(booking[:booking])
     end
 

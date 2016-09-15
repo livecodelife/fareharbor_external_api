@@ -33,8 +33,8 @@ class FareHarborService
     parse(response)
   end
 
-  def get_booking(shortname, booking_hash)
-    response = connection.get "companies/#{shortname}/bookings/#{booking_hash[:uuid]}/"
+  def get_booking(shortname, uuid)
+    response = connection.get "companies/#{shortname}/bookings/#{uuid}/"
     parse(response)
   end
 

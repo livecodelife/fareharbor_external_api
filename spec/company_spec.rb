@@ -80,12 +80,11 @@ describe FH::Company do
   it 'retrieves a specific booking for a companys item' do
     VCR.use_cassette('company#booking') do
       company = FH::Companies.find('bodyglove')
-      booking = company.booking(uuid: '85ab9e4c-03fd-4bd4-af67-4946aa426c79')
+      booking = company.booking('85ab9e4c-03fd-4bd4-af67-4946aa426c79')
 
-      expect(booking_hash.class).to eq Hash
-      expect(booking.class).to eq Hash
-      expect(booking['uuid']).to eq '85ab9e4c-03fd-4bd4-af67-4946aa426c79'
-      expect(booking['status']).to_not eq nil
+      expect(booking.class).to eq FH::Company::Booking
+      expect(booking.uuid).to eq '85ab9e4c-03fd-4bd4-af67-4946aa426c79'
+      expect(booking.status).to_not eq nil
     end
   end
 

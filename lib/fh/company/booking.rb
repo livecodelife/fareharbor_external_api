@@ -1,5 +1,27 @@
 module FH
   class Company::Booking
+    attr_reader :display_id,
+                :status,
+                :customers,
+                :uuid,
+                :receipt_taxes,
+                :note_safe_html,
+                :receipt_subtotal,
+                :arrival,
+                :rebooked_to,
+                :confirmation_url,
+                :note,
+                :receipt_total,
+                :pickup,
+                :contact,
+                :invoice_price,
+                :custom_field_values,
+                :pk,
+                :rebooked_from,
+                :external_id,
+                :availability,
+                :voucher_number
+
     def initialize(booking)
       @display_id          = booking[:display_id]
       @status              = booking[:status]
