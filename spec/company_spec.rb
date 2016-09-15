@@ -124,9 +124,10 @@ describe FH::Company do
     end
   end
 
-  xit 'verifies a booking' do
+  it 'verifies a booking' do
     VCR.use_cassette('company#verify_booking') do
-      booking_hash = FH::Company.verify_booking(
+      company = FH::Companies.find('bodyglove')
+      booking_verification = company.verify_booking(
         pk: 70043,
         company_shortname: 'bodyglove',
         name: 'John Doe',
@@ -137,10 +138,10 @@ describe FH::Company do
         voucher_number: 'VN-123456'
       )
 
-      expect(booking_hash.class).to eq Hash
-      expect(booking_hash['is_bookable']).to be true
-      expect(booking_hash['invoice_price']).to eq 28387
-      expect(booking_hash['receipt_total']).to eq 28387
+      expect(booking_verification.class).to eq FH::Company::Booking::Verification
+      expect(booking_verification.is_bookable).to be true
+      expect(booking_verification.invoice_price).to eq 28387
+      expect(booking_verification.receipt_total).to eq 28387
     end
   end
 

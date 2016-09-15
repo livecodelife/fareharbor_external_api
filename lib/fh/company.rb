@@ -51,8 +51,9 @@ module FH
       FH::Company::Booking.new(booking[:booking])
     end
 
-    def self.verify_booking(booking_hash)
-      service.post_verify_booking(booking_hash)
+    def verify_booking(booking_data)
+      verification = service.post_verify_booking(booking_data)
+      FH::Company::Booking::Verification.new(verification)
     end
 
     def self.cancel_booking(booking_hash)
