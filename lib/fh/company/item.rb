@@ -15,7 +15,7 @@ module FH
                 :description
 
     def initialize(item)
-      @image_url                     = item[:image_cdn_url]
+      @image_cdn_url                     = item[:image_cdn_url]
       @name                          = item[:name]
       @cancellation_policy_safe_html = item[:cancellation_policy_safe_html]
       @headline                      = item[:headline]
