@@ -143,4 +143,48 @@ describe FareHarbor::Affiliate::Company do
       expect(contact_info['name']).to eq 'John Doe'
     end
   end
+
+  it 'verifies a booking' do
+    VCR.use_cassette('company#verify_booking') do
+      booking_hash = FareHarbor::Affiliate::Company.verify_booking(
+        pk: 70043,
+        company_shortname: 'bodyglove',
+        name: 'John Doe',
+        phone: '415-789-4563',
+        email: 'johndoe@example.com',
+        customer_type_rates: [149126, 149126],
+        note: 'Optional booking note',
+        voucher_number: 'VN-123456'
+      )
+
+      expect(booking_hash.class).to eq Hash
+      expect(booking_hash['is_bookable']).to be true
+      expect(booking_hash['invoice_price']).to eq 28387
+      expect(booking_hash['receipt_total']).to eq 28387
+    end
+  end
+
+  it 'cancels a booking' do
+    VCR.use_cassette('company#cancel_booking') do
+      booking_hash = FareHarbor::Affiliate::Company.create_booking(
+        pk: 70043,
+        company_shortname: 'bodyglove',
+        name: 'John Doe',
+        phone: '415-789-4563',
+        email: 'johndoe@example.com',
+        customer_type_rates: [149126, 149126],
+        note: 'Optional booking note',
+        voucher_number: 'VN-123456'
+      )
+      uuid = booking_hash['booking']['uuid']
+      cancel_hash = FareHarbor::Affiliate::Company.cancel_booking(
+        company_shortname: 'bodyglove',
+        uuid: uuid
+      )
+      booking = cancel_hash['booking']
+      expect(cancel_hash.class).to eq Hash
+      expect(booking['uuid']).to eq uuid
+      expect(booking['status']).to eq 'cancelled'
+    end
+  end
 end

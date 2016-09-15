@@ -45,6 +45,14 @@ module FareHarbor
       def self.create_booking(booking_hash)
         service.post_booking(booking_hash)
       end
+
+      def self.verify_booking(booking_hash)
+        service.post_verify_booking(booking_hash)
+      end
+
+      def self.cancel_booking(booking_hash)
+        service.delete_booking(booking_hash)
+      end
     end
   end
 end
