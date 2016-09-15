@@ -65,15 +65,14 @@ describe FH::Company do
     end
   end
 
-  xit 'retrieves specific availability for company' do
+  it 'retrieves specific availability for company' do
     VCR.use_cassette('companies#availability') do
-      availability_hash = FH::Company.availability(company_shortname: 'bodyglove', pk: 70050)
-      availability = availability_hash['availability']
+      company = FH::Companies.find('bodyglove')
+      availability = company.availability(70050)
 
-      expect(availability_hash.class).to eq Hash
-      expect(availability.class).to eq Hash
-      expect(availability['capacity']).to eq 120
-      expect(availability['start_at']).to eq '2016-11-24T08:00:00-1000'
+      expect(availability.class).to eq FH::Company::Availability
+      expect(availability.capacity).to eq 120
+      expect(availability.start_at).to eq '2016-11-24T08:00:00-1000'
     end
   end
 
