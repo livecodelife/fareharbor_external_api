@@ -1,3 +1,5 @@
+require 'fh/company'
+
 class FareHarborService
 
   def initialize
@@ -8,7 +10,10 @@ class FareHarborService
 
   def get_companies
     response = connection.get 'companies/'
-    parse(response)
+    companies_hash = parse(response)
+    companies_hash[:companies].map do |company|
+      FH::Company.new(company)
+    end
   end
 
   def get_items(items_hash)
@@ -97,6 +102,6 @@ private
   end
 
   def parse(response)
-    JSON.parse(response.body)
+    JSON.parse(response.body, symbolize_names: true)
   end
 end
