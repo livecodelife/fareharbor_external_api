@@ -8,12 +8,12 @@ module FH
                 :pk
 
     def initialize(lodging)
-      @name = lodging[:name]
+      @name            = lodging[:name]
       @is_self_lodging = lodging[:is_self_lodging]
-      @url = lodging[:url]
-      @phone = lodging[:phone]
-      @address = lodging[:address]
-      @pk = lodging[:pk]
+      @url             = lodging[:url]
+      @phone           = lodging[:phone]
+      @address         = lodging[:address]
+      @pk              = lodging[:pk]
     end
   end
 end
