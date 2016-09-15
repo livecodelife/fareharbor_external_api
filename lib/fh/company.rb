@@ -12,6 +12,7 @@ module FH
     end
 
     def items
+
       all_items = service.get_items(shortname)
       all_items[:items].map { |item| FH::Company::Item.new(item) }
     end
@@ -29,8 +30,9 @@ module FH
       FH::Company::Availability.new(availability[:availability])
     end
 
-    def self.booking(booking_hash)
-      service.get_booking(booking_hash)
+    def booking(uuid)
+      booking = service.get_booking(shortname, uuid)
+      FH::Company::Booking.new(booking[:booking])
     end
 
     def lodgings
