@@ -28,8 +28,8 @@ class FareHarborService
     parse(response)
   end
 
-  def get_availability(availability_hash)
-    response = connection.get "companies/#{availability_hash[:company_shortname]}/availabilities/#{availability_hash[:pk]}/"
+  def get_availability(shortname, pk)
+    response = connection.get "companies/#{shortname}/availabilities/#{pk}/"
     parse(response)
   end
 
@@ -38,8 +38,8 @@ class FareHarborService
     parse(response)
   end
 
-  def get_lodgings(lodgings_hash)
-    response = connection.get "companies/#{lodgings_hash[:company_shortname]}/lodgings/"
+  def get_lodgings(shortname)
+    response = connection.get "companies/#{shortname}/lodgings/"
     parse(response)
   end
 
