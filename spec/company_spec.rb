@@ -34,19 +34,19 @@ describe FH::Company do
     end
   end
 
-  xit 'retrieves all availabilities by a range of dates for specific item' do
+  it 'retrieves all availabilities by a range of dates for specific item' do
     VCR.use_cassette('company#availabilities_by_date_range') do
-      availabilities_hash = FH::Company.availabilities_by_date_range(company_shortname: 'sharktourshawaii', pk: 1108, start_date: '2016-11-14', end_date: '2016-11-17')
-      availabilities = availabilities_hash['availabilities']
+      company = FH::Companies.find('sharktourshawaii')
+      availabilities = company.availabilities_by_date_range(pk: 1108, start_date: '2016-11-14', end_date: '2016-11-17')
       availability = availabilities.last
 
       expect(availabilities.count).to eq 16
-      expect(availabilities_hash.class).to eq Hash
       expect(availabilities.class).to eq Array
-      expect(availability['start_at']).to eq '2016-11-17T13:00:00-1000'
-      expect(availability['end_at']).to eq '2016-11-17T14:30:00-1000'
-      expect(availability['capacity']).to eq 18
-      expect(availability['pk']).to eq 391217
+      expect(availability.class).to eq FH::Company::Availability
+      expect(availability.start_at).to eq '2016-11-17T13:00:00-1000'
+      expect(availability.end_at).to eq '2016-11-17T14:30:00-1000'
+      expect(availability.capacity).to eq 18
+      expect(availability.pk).to eq 391217
     end
   end
 

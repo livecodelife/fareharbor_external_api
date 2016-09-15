@@ -23,8 +23,8 @@ class FareHarborService
     parse(response)
   end
 
-  def get_availabilities_by_date_range(availabilities_by_date_range_hash)
-    response = connection.get "companies/#{availabilities_by_date_range_hash[:company_shortname]}/items/#{availabilities_by_date_range_hash[:pk]}/minimal/availabilities/date-range/#{availabilities_by_date_range_hash[:start_date]}/#{availabilities_by_date_range_hash[:end_date]}/"
+  def get_availabilities_by_date_range(shortname, availability_data)
+    response = connection.get "companies/#{shortname}/items/#{availability_data[:pk]}/minimal/availabilities/date-range/#{availability_data[:start_date]}/#{availability_data[:end_date]}/"
     parse(response)
   end
 

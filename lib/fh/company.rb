@@ -21,8 +21,9 @@ module FH
       availabilities[:availabilities].map { |availability| FH::Company::Availability.new(availability) }
     end
 
-    def self.availabilities_by_date_range(availabilities_by_date_range_hash)
-      service.get_availabilities_by_date_range(availabilities_by_date_range_hash)
+    def availabilities_by_date_range(availability_data)
+      availabilities = service.get_availabilities_by_date_range(shortname, availability_data)
+      availabilities[:availabilities].map { |availability| FH::Company::Availability.new(availability) }
     end
 
     def availability(pk)
