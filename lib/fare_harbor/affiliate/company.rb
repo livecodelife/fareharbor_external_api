@@ -1,6 +1,4 @@
-require 'fareharbor_external_api/version'
-require 'faraday'
-require 'fare_harbor_service'
+require './lib/fareharbor_external_api'
 
 module FareHarbor
   module Affiliate

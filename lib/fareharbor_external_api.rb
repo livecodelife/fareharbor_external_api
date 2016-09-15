@@ -1,0 +1,5 @@
+require 'json'
+require 'faraday'
+require 'fareharbor_external_api/version'
+require 'fare_harbor/affiliate/company'
+require 'fare_harbor_service'
