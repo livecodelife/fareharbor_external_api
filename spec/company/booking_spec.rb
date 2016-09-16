@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe FH::Company::Booking.new(booking: "") do
+  it 'exists' do
+    expect FH::Company::Booking
+  end
   it {should respond_to(:display_id)}
   it {should respond_to(:status)}
   it {should respond_to(:customers)}
