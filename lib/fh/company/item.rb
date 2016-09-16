@@ -1,6 +1,6 @@
 module FH
   class Company::Item
-    attr_reader :image_url,
+    attr_reader :image_cdn_url,
                 :name,
                 :cancellation_policy_safe_html,
                 :headline,
