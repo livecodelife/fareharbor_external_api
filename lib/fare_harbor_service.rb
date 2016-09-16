@@ -68,8 +68,8 @@ class FareHarborService
     parse(response)
   end
 
-  def delete_booking(booking_hash)
-    response = connection.delete "companies/#{booking_hash[:company_shortname]}/bookings/#{booking_hash[:uuid]}/"
+  def delete_booking(shortname, uuid)
+    response = connection.delete "companies/#{shortname}/bookings/#{uuid}/"
     parse(response)
   end
 

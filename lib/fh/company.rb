@@ -56,8 +56,9 @@ module FH
       FH::Company::Booking::Verification.new(verification)
     end
 
-    def self.cancel_booking(booking_hash)
-      service.delete_booking(booking_hash)
+    def cancel_booking(uuid)
+      cancelled_booking = service.delete_booking(shortname, uuid)
+      FH::Company::Booking.new(cancelled_booking[:booking])
     end
   end
 end

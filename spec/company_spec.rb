@@ -145,9 +145,10 @@ describe FH::Company do
     end
   end
 
-  xit 'cancels a booking' do
+  it 'cancels a booking' do
     VCR.use_cassette('company#cancel_booking') do
-      booking_hash = FH::Company.create_booking(
+      company = FH::Companies.find('bodyglove')
+      booking = company.create_booking(
         pk: 70043,
         company_shortname: 'bodyglove',
         name: 'John Doe',
@@ -157,15 +158,11 @@ describe FH::Company do
         note: 'Optional booking note',
         voucher_number: 'VN-123456'
       )
-      uuid = booking_hash['booking']['uuid']
-      cancel_hash = FH::Company.cancel_booking(
-        company_shortname: 'bodyglove',
-        uuid: uuid
-      )
-      booking = cancel_hash['booking']
-      expect(cancel_hash.class).to eq Hash
-      expect(booking['uuid']).to eq uuid
-      expect(booking['status']).to eq 'cancelled'
+      cancelled_booking = company.cancel_booking(booking.uuid)
+
+      expect(cancelled_booking.class).to eq FH::Company::Booking
+      expect(cancelled_booking.uuid).to eq booking.uuid
+      expect(cancelled_booking.status).to eq 'cancelled'
     end
   end
 end
