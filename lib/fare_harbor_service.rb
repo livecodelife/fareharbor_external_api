@@ -48,28 +48,28 @@ class FareHarborService
     parse(response)
   end
 
-  def post_booking(booking_hash)
-    booking_data = format_booking_body(booking_hash).to_json
+  def post_booking(booking_data)
+    booking_request = format_booking_body(booking_data).to_json
     response = connection.post do |req|
-      req.url "companies/#{booking_hash[:company_shortname]}/availabilities/#{booking_hash[:pk]}/bookings/"
+      req.url "companies/#{booking_data[:company_shortname]}/availabilities/#{booking_data[:pk]}/bookings/"
       req.headers['Content-Type'] = 'application/json'
-      req.body = booking_data
+      req.body = booking_request
     end
     parse(response)
   end
 
-  def post_verify_booking(booking_hash)
-    booking_data = format_booking_body(booking_hash).to_json
+  def post_verify_booking(booking_data)
+    verification_request = format_booking_body(booking_data).to_json
     response = connection.post do |req|
-      req.url "companies/#{booking_hash[:company_shortname]}/availabilities/#{booking_hash[:pk]}/bookings/validate/"
+      req.url "companies/#{booking_data[:company_shortname]}/availabilities/#{booking_data[:pk]}/bookings/validate/"
       req.headers['Content-Type'] = 'application/json'
-      req.body = booking_data
+      req.body = verification_request
     end
     parse(response)
   end
 
-  def delete_booking(booking_hash)
-    response = connection.delete "companies/#{booking_hash[:company_shortname]}/bookings/#{booking_hash[:uuid]}/"
+  def delete_booking(shortname, uuid)
+    response = connection.delete "companies/#{shortname}/bookings/#{uuid}/"
     parse(response)
   end
 

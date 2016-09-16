@@ -46,16 +46,19 @@ module FH
       lodgings[:lodgings].map { |lodging| FH::Company::Lodging.new(lodging) }
     end
 
-    def self.create_booking(booking_hash)
-      service.post_booking(booking_hash)
+    def create_booking(booking_request)
+      booking = service.post_booking(booking_request)
+      FH::Company::Booking.new(booking[:booking])
     end
 
-    def self.verify_booking(booking_hash)
-      service.post_verify_booking(booking_hash)
+    def verify_booking(booking_data)
+      verification = service.post_verify_booking(booking_data)
+      FH::Company::Booking::Verification.new(verification)
     end
 
-    def self.cancel_booking(booking_hash)
-      service.delete_booking(booking_hash)
+    def cancel_booking(uuid)
+      cancelled_booking = service.delete_booking(shortname, uuid)
+      FH::Company::Booking.new(cancelled_booking[:booking])
     end
   end
 end
