@@ -8,8 +8,8 @@ describe FH::Company::Item do
   it 'can create a new item' do
     VCR.use_cassette('company#items') do
       company = FH::Companies.find('islandsailing')
-      items = company.items
-      item  = items.first
+      items   = company.items
+      item    = items.first
 
       expect(item.class).to eq FH::Company::Item
       expect(item).to respond_to :image_cdn_url
