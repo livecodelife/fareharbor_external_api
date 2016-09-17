@@ -75,9 +75,12 @@ Is the equivalent of:
 
 #### All Companies
 
-To access a list of all affiliate companies, use the all method:
+To access a list of all affiliate companies available to you, use the all method on the `Companies` class:
 
 `FH::Companies.all`
+
+this will return a list of `Company` objects.
+
 
 
 ### Paths
@@ -97,7 +100,7 @@ Method:
     FH::Companies.all
 
 
-Example response:
+The example response from the API is as below:
 
      [
         {
@@ -108,6 +111,15 @@ Example response:
           "name": "Surf Lessons Hawaii"
         }
       ]
+
+With the wrapper, this is transposed into `Company` objects:
+
+    [#<FH::Company:0x007fd17b8f17c8 @name="Hawaiian Adventures", @shortname="hawaiianadventures">,
+    #<FH::Company:0x007fd17b8f15e8 @name="Surf Lessons Hawaii", @shortname="surflessonshawaii">]
+
+as an array, you can call typical array methods to choose a particular company to call `Company` methods on, although it may be preferable to find a `Company` and call the methods that way.
+
+You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
 
     GET /companies/<shortname>/lodgings/
     FH::Company.lodgings
