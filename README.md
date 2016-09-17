@@ -109,8 +109,21 @@ Example response:
         }
       ]
 
-    GET /companies/<shortname>/lodgings/
+
+`GET /companies/<shortname>/lodgings/`
+
+Returns a list of all lodgings for a specific company, provided you have permission to access that company
+
+Method:
+
     FH::Company.lodgings
+The easiest way to use this would be something like this:
+
+    company = FH::Companies.find(<company shortname>)
+
+    company.lodgings
+
+...
 
     GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
     FH::Company.availability_lodgings
