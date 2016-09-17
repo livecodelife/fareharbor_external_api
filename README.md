@@ -112,6 +112,9 @@ The example response from the API is as below:
         }
       ]
 
+
+
+
 With the wrapper, this is transposed into `Company` objects:
 
     [#<FH::Company:0x007fd17b8f17c8 @name="Hawaiian Adventures", @shortname="hawaiianadventures">,
@@ -121,8 +124,34 @@ as an array, you can call typical array methods to choose a particular company t
 
 You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
 
-    GET /companies/<shortname>/lodgings/
+    `GET /companies/<shortname>/lodgings/`
+
+Returns a list of all lodgings for a specific company.
+
+Method:
+
     FH::Company.lodgings
+
+The easiest way to use this would be something like this:
+
+    company = FH::Companies.find(<company shortname>)
+
+    company.lodgings
+
+Example response
+
+    [
+     {
+       "pk": 231,
+       "name": "Wyndham Royal Garden",
+       "phone": "(808) 943-0202",
+       "address": "440 Olohana St Honolulu, HI 96815",
+       "url": "https:\/\/www.extraholidays.com\/honolulu-hawaii\/royal-garden-at-waikiki.aspx",
+       "is_self_lodging": false
+     }
+    ]
+
+...
 
     GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
     FH::Company.availability_lodgings
