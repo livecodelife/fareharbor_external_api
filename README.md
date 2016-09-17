@@ -110,34 +110,34 @@ Example response:
       ]
 
     GET /companies/<shortname>/lodgings/
-    FareHarbor::Affiliate::Company.lodgings
+    FH::Company.lodgings
 
     GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
-    FareHarbor::Affiliate::Company.availability_lodgings
+    FH::Company.availability_lodgings
 
     GET /companies/<shortname>/items/
-    FareHarbor::Affiliate::Company.items
+    FH::Company.items
 
     GET /companies/<shortname>/items/<item.pk>/availabilities/date/<date>/
-    FareHarbor::Affiliate::Company.availabilities_by_date
+    FH::Company.availabilities_by_date
 
     GET /companies/<shortname>/items/<item.pk>/availabilities/date-range/<start-date>/<end-date>/
-    FareHarbor::Affiliate::Company.availabilities_by_date_range
+    FH::Company.availabilities_by_date_range
 
     GET /companies/<shortname>/availabilities/<Availability.pk>/
-    FareHarbor::Affiliate::Company.availabilities
+    FH::Company.availabilities
 
     POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/
-    FareHarbor::Affiliate::Company
+    FH::Company
 
     GET /companies/<shortname>/bookings/<Booking.uuid>/
-    FareHarbor::Affiliate::Company.bookings
+    FH::Company.bookings
 
     DELETE /companies/<shortname>/bookings/<Booking.uuid>/
-    FareHarbor::Affiliate::Company
+    FH::Company
 
     POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/validate/
-    FareHarbor::Affiliate::Company
+    FH::Company
 
 ## Development
 
