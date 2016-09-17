@@ -126,7 +126,7 @@ You can find the API information for this endpoint [here](https://github.com/Far
 
     `GET /companies/<shortname>/lodgings/`
 
-Returns a list of all lodgings for a specific company, provided you have permission to access that company
+Returns a list of all lodgings for a specific company.
 
 Method:
 
