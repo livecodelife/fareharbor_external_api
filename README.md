@@ -20,49 +20,64 @@ Or install it yourself as:
 
     $ gem install fareharbor_external_api
 
-## Setup: Keys
+## Setup
+
+#### Requesting Access
 
 To get started with the FareHarbor External API Gem, you will need to request access keys from FareHarbor. Please contact <support@fareharbor.com> to request access to the FareHarbor External API.
 
-#### Bash Profile
+Once you have your keys, you will need to save them.
 
-If you want to set your keys inside your bash profile:
+#### Setting Up Your Access Keys
 
-    .bash_profile
+Once you have your access keys, you will need to set them as environment variables to work with the gem.  Below are two options for setting your environment variables.
+
+###### For Use in Production
+
+We recommend using the Figaro gem to set your environment variables.  Follow the directions to set your keys [here.](https://github.com/laserlemon/figaro#example)
+
+In your application.yml file, set your keys like this:
+
+    FAREHARBOR_API_APP_KEY=<your_api_app_key>
+    FAREHARBOR_API_USER_KEY=<your_api_user_key>
+
+Your key names must match the above key names exactly.  Once you are done, make sure you add application.yml to your .gitignore file to keep your keys hidden!
+
+###### For Local Use
+
+You can either set your keys using the Figaro gem (instructions above) or inside your bash profile.  To set your keys inside your bash profile, open your bash profile and add the following lines:
 
     export FAREHARBOR_API_APP_KEY=<your_api_app_key>
     export FAREHARBOR_API_USER_KEY=<your_api_user_key>
 
-Then in your command line, enter
+To save your changes, enter the following in your command line:
 
     source ~/.bash_profile
 
-#### Figaro
-
-If you are using Figaro, follow the directions to set your keys [here.](https://github.com/laserlemon/figaro#example)
-
-In your application.yml file, set your keys like this:
-
-FAREHARBOR_API_APP_KEY=<your_api_app_key>
-FAREHARBOR_API_USER_KEY=<your_api_user_key>
-
-Make sure you add application.yml to your .gitignore file to keep your keys hidden
 
 ## Usage
 
-After installing the gem and setting your keys, you can access specific endpoint data by calling `FareHarbor::Affiliate::Company.<specify method here>`
+The FareHarbor External API Gem is a wrapper for the FareHarbor External API.  Each endpoint returns data only for companies that the affiliate / API-user has permission to access.
 
-For ease of use, it is recommended that you save the above class as a variable.
+#### Single Company
 
-`affiliate = FareHarbor::Affiliate::Company`
+To access a single company and find data pertaining to that company, you can use the find method.  For ease of use, it is recommended that you save the result to a variable.
 
-Now you can call the specified endpoint methods on the affiliate variable. For example:
+`company = FH::Companies.find('<company shortname goes here>')`
 
-`affiliate.items(company_shortname: <your company shortname here>)`
+Now you have the ability to call methods on the affiliate variable. For example
+
+`company.items('<company shortname goes here>')`
 
 Is the equivalent of:
 
-`FareHarbor::Affiliate::Company.items(company_shortname: <your company shortname here>)`
+`FH::Company.items('<company shortname goes here>')`
+
+#### All Companies
+
+To access a list of all affiliate companies, use the all method:
+
+`FH::Companies.all`
 
 
 ### Paths
@@ -76,16 +91,15 @@ Use the methods below to access JSON data corresponding with each endpoint:
 Returns a list of all companies for which you have permission to create bookings;
 note that this may include companies that have no bookable availabilities.
 
-Returns an array of `Company` objects.
 
 Method:
 
-    FareHarbor::Affiliate::Company.all
+    FH::Companies.all
+
 
 Example response:
 
-    {
-      "companies": [
+     [
         {
           "shortname": "hawaiianadventures",
           "name": "Hawaiian Adventures"
@@ -94,7 +108,6 @@ Example response:
           "name": "Surf Lessons Hawaii"
         }
       ]
-    }
 
     GET /companies/<shortname>/lodgings/
     FareHarbor::Affiliate::Company.lodgings
