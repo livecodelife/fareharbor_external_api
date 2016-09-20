@@ -6,8 +6,8 @@ module FH
     end
 
     def self.all
-      companies_hash = service.get_companies
-      companies_hash[:companies].map do |company|
+      companies = service.get_companies
+      companies[:companies].map do |company|
         FH::Company.new(company)
       end
     end
