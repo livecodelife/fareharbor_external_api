@@ -21,7 +21,7 @@ describe FH::Company do
     availabilities = company.availabilities_by_date(pk: 1108, date: '2016-11-14')
     availability = availabilities.first
 
-    expect(availabilities.count).to eq 4
+    expect(availabilities.count).to eq 1
     expect(availabilities.class).to eq Array
     expect(availability.class).to eq FH::Company::Availability
     expect(availability.start_at).to eq '2016-11-14T07:00:00-1000'
@@ -35,13 +35,13 @@ describe FH::Company do
     availabilities = company.availabilities_by_date_range(pk: 1108, start_date: '2016-11-14', end_date: '2016-11-17')
     availability = availabilities.last
 
-    expect(availabilities.count).to eq 16
+    expect(availabilities.count).to eq 1
     expect(availabilities.class).to eq Array
     expect(availability.class).to eq FH::Company::Availability
-    expect(availability.start_at).to eq '2016-11-17T13:00:00-1000'
-    expect(availability.end_at).to eq '2016-11-17T14:30:00-1000'
+    expect(availability.start_at).to eq '2016-11-14T07:00:00-1000'
+    expect(availability.end_at).to eq '2016-11-14T08:30:00-1000'
     expect(availability.capacity).to eq 18
-    expect(availability.pk).to eq 391217
+    expect(availability.pk).to eq 435426
   end
 
   it 'retrieves specific availability for company' do
