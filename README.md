@@ -84,7 +84,7 @@ Please see the 'Endpoints and Methods' sections below for a full list of endpoin
 
 Use the methods below to easily consume endpoint data from the FareHarbor External API.  Please note that in all methods below `company` refers to a Company object.  For more information on how to instantiate a company object, please visit the 'Primary Usage section.'
 
-###### All Companies
+##### All Companies
 
     Endpoint: `GET /companies/`
 
@@ -92,9 +92,9 @@ Use the methods below to easily consume endpoint data from the FareHarbor Extern
 
 Returns an array of Company objects; note that this may include companies that have no bookable availabilities. You can call methods on each Company object to return specific company data.  For more information on how to use a single Company object, please see 'Primary Usage'.
 
-You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
+You can find the API information for all companies [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
 
-###### Lodgings
+##### Lodgings
 
     Endpoint: GET /companies/<shortname>/lodgings/
 
@@ -113,8 +113,9 @@ A Lodging has the follwing attributes which can be accessed by calling them as m
     lodging.address
     lodging.pk  
 
+You can find the API information for all lodgings [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#lodgings).
 
-###### Availability Lodgings
+##### Availability Lodgings
 
     Endpoint: GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
 
@@ -134,7 +135,9 @@ A Lodging has the following attributes which can be accessed by calling them as 
     lodging.pk  
     lodging.is_pickup_available
 
-###### Items
+You can find the API information for all availability lodgings [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#availability-lodgings).
+
+##### Items
 
     Endpoint: GET /companies/<shortname>/items/
 
@@ -161,7 +164,10 @@ An Item has the following attributes which can be accessed by calling them as me
     item.tax_percentage
     item.description
 
-###### Availabilities
+You can find the API information for all items [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#items).
+
+
+##### Availabilities
 
     **Find Single Availability**
 
@@ -183,7 +189,7 @@ Returns an Availability object.
 
     Method:   company.availabilities_by_date_range({pk: <availability pk>, start_date: '<availability start date>', end_date: '<availability end date>'})
 
-Returns an array of Availability objects.  Returns possibly-bookable availabilities for date, or for the range start-date through end-date. Note that possibly-bookable availabilities include those for which customers are requested to "call to book". Note that 'date', 'start_date', and 'end_date' should be in the format 'YYYY-MM-DD' and passed in a string, while the availability 'pk' should be passed in as an integer. When searching for an availability by date, those values must all be passed in through a single hash.
+Returns an array of Availability objects.  Returns possibly-bookable availabilities for date, or for the range start-date through end-date. Note that possibly-bookable availabilities include those for which customers are requested to "call to book". Note that 'date', 'start_date', and 'end_date' should be in the format 'YYYY-MM-DD' and passed in a string, while the availability 'pk' should be passed in as an integer. When searching for an availability by date, these values must all be passed in through a single hash.
 
 An Availability has the following attributes which can be accessed by calling them as methods:
 
@@ -199,64 +205,92 @@ An Availability has the following attributes which can be accessed by calling th
     availability.start_at
     availability.end_at
 
-###### Bookings
+You can find the API information for all availabilities [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#availabilities).
 
-    Endpoint: GET /companies/<shortname>/bookings/<Booking.uuid>/
 
-    Method:   company.booking(<booking uuid>)
+##### Bookings
 
-Returns a Booking object.  Booking method accepts booking 'uuid' as an argument passed in as an integer.
+The following booking methods each return a Booking object.
 
 A Booking has the following attributes which can be accessed by calling them as methods:
 
-    booking = company.booking(<booking uuid>)
+        booking = company.booking('<booking uuid>')
 
-    booking.display_id
-    booking.status
-    booking.customers
-    booking.uuid
-    booking.receipt_taxes
-    booking.note_safe_html
-    booking.receipt_subtotal
-    booking.arrival
-    booking.rebooked_to
-    booking.confirmation_url
-    booking.note
-    booking.receipt_total
-    booking.pickup
-    booking.contact
-    booking.invoice_price
-    booking.custom_field_values
-    booking.pk
-    booking.rebooked_from
-    booking.external_id
-    booking.availability
-    booking.voucher_number
+        booking.display_id
+        booking.status
+        booking.customers
+        booking.uuid
+        booking.receipt_taxes
+        booking.note_safe_html
+        booking.receipt_subtotal
+        booking.arrival
+        booking.rebooked_to
+        booking.confirmation_url
+        booking.note
+        booking.receipt_total
+        booking.pickup
+        booking.contact
+        booking.invoice_price
+        booking.custom_field_values
+        booking.pk
+        booking.rebooked_from
+        booking.external_id
+        booking.availability
+        booking.voucher_number
 
+###### Find A Single Booking
 
-###### Create A Booking
+    Endpoint: GET /companies/<shortname>/bookings/<Booking.uuid>/
+
+    Method:   company.booking('<booking uuid>')
+
+Booking method accepts booking 'uuid' as an argument passed in as a string.
+
+###### Create And Validate A Booking
+
+    **Create a Booking:**
 
     Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/
-    Method:   FH::Company
+
+    Method:   company.post_booking(booking_data)
+
+    **Validate a Booking:**
+
+    Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/validate/
+
+    Method:   company.post_verify_booking(booking_data)
+
+These post requests accept a hash as an argument in the following format:
+
+        booking_data = {
+        pk: <availability pk (integer)>,
+        company_shortname: '<company shortname (string)>',
+        name: '<name (string)>',
+        phone: '<phone (string)>',
+        email: '<email (string)>',
+        customer_type_rates: [<customer type rate (integer)>, <customer type rate (integer)>]
+        note: '<note (string)>',
+        voucher_number: '<voucher number (string)'
+      }
+
+Please note the class of each argument.  Also note that customer type rates are represented by an array of integers.
 
 
 ###### Delete A Booking
 
     Endpoint: DELETE /companies/<shortname>/bookings/<Booking.uuid>/
-    Method:   FH::Company
 
-###### Validate A Booking
+    Method:   company.cancel_booking('<booking uuid>')
 
-    Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/validate/
-    Method:   FH::Company
+
+You can find the API information for all bookings [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#bookings).
+
 
 ## Troubleshooting
 
 Some methods refer to `Companies` while others refer to `Company`.  Please double-check the documentation above to ensure your syntax is correct.
 
-Many methods take a hash as an argument.  Check the documentation above to make sure you are inputting your arguments correctly, and have included all the necessary arguments.
-
-Confused about where the `company` variable came from in the 'Endpoints and Methods' section?  Check out the 'Primary Usage and Finding a Company' section to learn how to instantiate a company object and set it as a variable.
+Many methods take a hash as an argument.  Check the documentation above to make sure you are inputting your arguments correctly, and have included all the necessary arguments and formatted them correctly.
 
 ## Development
 
