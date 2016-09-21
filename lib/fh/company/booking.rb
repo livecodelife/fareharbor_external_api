@@ -42,8 +42,12 @@ module FH
       @pk                  = booking[:pk]
       @rebooked_from       = booking[:rebooked_from]
       @external_id         = booking[:external_id]
-      @availability        = FH::Company::Availability.new(booking[:availability]) if booking[:availability]
+      @availability        = create_availability(booking[:availability])
       @voucher_number      = booking[:voucher_number]
+    end
+
+    def create_availability(availability)
+      FH::Company::Availability.new(availability) if availability
     end
   end
 end
