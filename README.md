@@ -57,9 +57,9 @@ All endpoints are rooted at `https://fareharbor.com/api/external/v1/`.
 
 To see the full JSON output that each endpoint returns, please visit our [endpoint documentation.](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md)
 
-#### Primary Usage
+### Primary Usage and Finding a Company
 
-To access a single affiliate company, you can use the find method. This will return a single company object.  For ease of use, it is recommended that you save the result to a variable.
+To access a single affiliate company, you can use the find method. This will return a single company object.  The find method accepts the company 'shortname' as an argument passed in as a string. For ease of use, it is recommended that you save the result to a variable.
 
 `company = FH::Companies.find('<company shortname>')`
 
@@ -67,27 +67,22 @@ You can now call methods on that company object to retrieve data about the compa
 
 `company.items`
 
-If you know the company shortname and name, you can also manually create an instance of a company.  Please note that if you choose to instantiate a company this way, you will need to pass in your data as a hash indicating the company shortname and name:
+If you know the company shortname and name, you can also manually create an instance of a company.  Please note that if you choose to instantiate a company this way, you will need to pass in your data as a hash with keys of 'shortname' and 'name' and their respective values as strings:
 
 `company = FH::Company.new({shortname: '<company shortname>', name: '<company name>'})`
 
-When a company object has been instantiated, it has these attributes:
+A Company has the following attributes which can be accessed by calling them as methods:
 
-* shortname
-* name
+    company = FH::Companies.find('<company shortname>')
 
-You can retrieve those attributes of a company by calling them as methods:
-
-`company = FH::Companies.find('<company shortname>')`
-
-`company.shortname`
-`company.name`
+    company.shortname
+    company.name
 
 Please see the 'Endpoints and Methods' sections below for a full list of endpoints and their corresponding methods to retrieve data.
 
 ### Endpoints and Methods
 
-Use the methods below to easily consume endpoint data from the FareHarbor External API:
+Use the methods below to easily consume endpoint data from the FareHarbor External API.  Please note that in all methods below `company` refers to a Company object.  For more information on how to instantiate a company object, please visit the 'Primary Usage section.'
 
 ###### All Companies
 
@@ -95,74 +90,155 @@ Use the methods below to easily consume endpoint data from the FareHarbor Extern
 
     Method:   `FH::Companies.all`
 
-Returns all companies belonging to an affiliate; note that this may include companies that have no bookable availabilities.
-Data is returned as an array of company objects. You can call methods on each company object in the array to return specific company data.  For information about how to use a single company object, please see 'Primary Usage'.
+Returns an array of Company objects; note that this may include companies that have no bookable availabilities. You can call methods on each Company object to return specific company data.  For more information on how to use a single Company object, please see 'Primary Usage'.
 
 You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
 
 ###### Lodgings
 
-    Endpoint: `GET /companies/<shortname>/lodgings/`
+    Endpoint: GET /companies/<shortname>/lodgings/
 
-    Method:   `FH::Company.lodgings`
+    Method:   company.lodgings
 
-Returns a list of all lodgings for a specific company.  Data is returned as an array of lodging objects.
+Returns an array of Lodging objects.  
 
-When a lodging has been instantiated, it has these attributes:
+A Lodging has the follwing attributes which can be accessed by calling them as methods:
 
-* name
-* is_self_lodging
-* url
-* phone
-* address
-* pk
+    lodging = company.lodgings.first
 
-You can retrieve those attributes of a lodging by calling them as methods:
-
-`lodging = FH::Company.lodgings.first`
-
-`lodging.name`
-`lodging.is_self_lodging`
-`lodging.url`
-`lodging.phone`
-`lodging.address`
-`lodging.pk`
+    lodging.name  
+    lodging.is_self_lodging
+    lodging.url
+    lodging.phone
+    lodging.address
+    lodging.pk  
 
 
 ###### Availability Lodgings
 
     Endpoint: GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
-    Method:   FH::Company.availability_lodgings
+
+    Method:   company.availability_lodgings(<availability pk>)
+
+Returns an array of Lodging objects that include availability specific data.  Method accepts lodging 'pk' as an argument passed in as an integer.
+
+A Lodging has the following attributes which can be accessed by calling them as methods:
+
+    lodging = company.availability_lodgings(<availability pk>).first
+
+    lodging.name  
+    lodging.is_self_lodging
+    lodging.url
+    lodging.phone
+    lodging.address
+    lodging.pk  
+    lodging.is_pickup_available
 
 ###### Items
 
     Endpoint: GET /companies/<shortname>/items/
-    Method:   FH::Company.items
 
-###### Availabilities By Date
+    Method:   company.items
 
-    Endpoint: GET /companies/<shortname>/items/<item.pk>/availabilities/date/<date>/
-    Method:   FH::Company.availabilities_by_date
+Returns an array of Item objects for which you have permission to create bookings; again, note that this may include items that have no bookable availabilities.
 
-###### Availabilities By Date Range
 
-    Endpoint: GET /companies/<shortname>/items/<item.pk>/availabilities/date-range/<start-date>/<end-date>/
-    Method:   FH::Company.availabilities_by_date_range
+An Item has the following attributes which can be accessed by calling them as methods:
+
+    item = company.items.first
+
+    item.image_cdn_url
+    item.name  
+    item.cancellation_policy_safe_html
+    item.headline
+    item.cancellation_policy
+    item.is_pickup_ever_available
+    item.description_safe_html
+    item.location
+    item.customer_prototypes
+    item.images
+    item.pk
+    item.tax_percentage
+    item.description
 
 ###### Availabilities
 
+    **Find Single Availability**
+
     Endpoint: GET /companies/<shortname>/availabilities/<Availability.pk>/
-    Method:   FH::Company.availabilities
+
+    Method:   company.availabilities
+
+Returns an Availability object.
+
+    **Availabilities By Date:**
+
+    Endpoint: GET /companies/<shortname>/items/<item.pk>/availabilities/date/<date>/
+
+    Method:   company.availabilities_by_date({pk: <availability pk>, date: '<availability date>'})
+
+    **Availabilities By Date Range:**
+
+    Endpoint: GET /companies/<shortname>/items/<item.pk>/availabilities/date-range/<start-date>/<end-date>/
+
+    Method:   company.availabilities_by_date_range({pk: <availability pk>, start_date: '<availability start date>', end_date: '<availability end date>'})
+
+Returns an array of Availability objects.  Returns possibly-bookable availabilities for date, or for the range start-date through end-date. Note that possibly-bookable availabilities include those for which customers are requested to "call to book". Note that 'date', 'start_date', and 'end_date' should be in the format 'YYYY-MM-DD' and passed in a string, while the availability 'pk' should be passed in as an integer. When searching for an availability by date, those values must all be passed in through a single hash.
+
+An Availability has the following attributes which can be accessed by calling them as methods:
+
+    availability = company.availabilities.first
+    availability = company.availabilities_by_date({pk: <availability pk>, date: '<availability date>'}).first
+    availability = company.availabilities_by_date_range({pk: <availability pk>, start_date: '<availability start date>', end_date: '<availability end date>'}).first
+
+    availability.capacity
+    availability.customer_type_rates
+    availability.custom_field_instances
+    availability.item
+    availability.pk
+    availability.start_at
+    availability.end_at
+
+###### Bookings
+
+    Endpoint: GET /companies/<shortname>/bookings/<Booking.uuid>/
+
+    Method:   company.booking(<booking uuid>)
+
+Returns a Booking object.  Booking method accepts booking 'uuid' as an argument passed in as an integer.
+
+A Booking has the following attributes which can be accessed by calling them as methods:
+
+    booking = company.booking(<booking uuid>)
+
+    booking.display_id
+    booking.status
+    booking.customers
+    booking.uuid
+    booking.receipt_taxes
+    booking.note_safe_html
+    booking.receipt_subtotal
+    booking.arrival
+    booking.rebooked_to
+    booking.confirmation_url
+    booking.note
+    booking.receipt_total
+    booking.pickup
+    booking.contact
+    booking.invoice_price
+    booking.custom_field_values
+    booking.pk
+    booking.rebooked_from
+    booking.external_id
+    booking.availability
+    booking.voucher_number
+
 
 ###### Create A Booking
 
     Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/
     Method:   FH::Company
 
-###### Bookings
-
-    Endpoint: GET /companies/<shortname>/bookings/<Booking.uuid>/
-    Method:   FH::Company.bookings
 
 ###### Delete A Booking
 
@@ -177,6 +253,10 @@ You can retrieve those attributes of a lodging by calling them as methods:
 ## Troubleshooting
 
 Some methods refer to `Companies` while others refer to `Company`.  Please double-check the documentation above to ensure your syntax is correct.
+
+Many methods take a hash as an argument.  Check the documentation above to make sure you are inputting your arguments correctly, and have included all the necessary arguments.
+
+Confused about where the `company` variable came from in the 'Endpoints and Methods' section?  Check out the 'Primary Usage and Finding a Company' section to learn how to instantiate a company object and set it as a variable.
 
 ## Development
 
