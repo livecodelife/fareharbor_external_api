@@ -1,10 +1,7 @@
 # FareharborExternalApi
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/fareharbor_external_api`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
+# Installation
 
 Add this line to your application's Gemfile:
 
@@ -20,19 +17,17 @@ Or install it yourself as:
 
     $ gem install fareharbor_external_api
 
-## Setup
+# Setup
 
-#### Requesting Access
+## Requesting Access
 
 To get started with the FareHarbor External API Gem, you will need to request access keys from FareHarbor. Please contact <support@fareharbor.com> to request access to the FareHarbor External API.
 
-Once you have your keys, you will need to save them.
-
-#### Setting Up Your Access Keys
+## Setting Up Your Access Keys
 
 Once you have your access keys, you will need to set them as environment variables to work with the gem.  Below are two options for setting your environment variables.
 
-###### For Use in Production
+## For Use in Production
 
 We recommend using the Figaro gem to set your environment variables.  Follow the directions to set your keys [here.](https://github.com/laserlemon/figaro#example)
 
@@ -43,7 +38,7 @@ In your application.yml file, set your keys like this:
 
 Your key names must match the above key names exactly.  Once you are done, make sure you add application.yml to your .gitignore file to keep your keys hidden!
 
-###### For Local Use
+## For Local Use
 
 You can either set your keys using the Figaro gem (instructions above) or inside your bash profile.  To set your keys inside your bash profile, open your bash profile and add the following lines:
 
@@ -57,151 +52,251 @@ To save your changes, enter the following in your command line:
     source ~/.bash_profile
 
 
-## Usage
+# Usage
 
-The FareHarbor External API Gem is a wrapper for the FareHarbor External API.  Each endpoint returns data only for companies that the affiliate / API-user has permission to access.
+The FareHarbor External API Gem is a wrapper for the FareHarbor External API.  Each endpoint of the API returns data for companies associated with an affiliate or that the API-user has permission to access.
 
-#### Single Company
+All endpoints are rooted at `https://fareharbor.com/api/external/v1/`.  
 
-To access a single company and find data pertaining to that company, you can use the find method.  For ease of use, it is recommended that you save the result to a variable.
+To see the full JSON output that each endpoint returns, please visit our [endpoint documentation.](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md)
 
-`company = FH::Companies.find('<company shortname goes here>')`
+## Primary Usage and Finding a Company
 
-Now you have the ability to call methods on the affiliate variable. For example
+To access a single affiliate company, you can use the find method. This will return a single company object.  The find method accepts the company 'shortname' as an argument passed in as a string. For ease of use, it is recommended that you save the result to a variable.
 
-`company.items('<company shortname goes here>')`
+`company = FH::Companies.find('<company shortname>')`
 
-Is the equivalent of:
+You can now call methods on that company object to retrieve data about the company.  Here is a sample method being called on the company object after is has been saved as variable:
 
-`FH::Company.items('<company shortname goes here>')`
+`company.items`
 
-#### All Companies
+If you know the company shortname and name, you can also manually create an instance of a company.  Please note that if you choose to instantiate a company this way, you will need to pass in your data as a hash with keys of 'shortname' and 'name' and their respective values as strings:
 
-To access a list of all affiliate companies available to you, use the all method on the `Companies` class:
+`company = FH::Company.new({shortname: '<company shortname>', name: '<company name>'})`
 
-`FH::Companies.all`
+A Company has the following attributes which can be accessed by calling them as methods:
 
-this will return a list of `Company` objects.
+    company = FH::Companies.find('<company shortname>')
+
+    company.shortname
+    company.name
+
+Please see the 'Endpoints and Methods' sections below for a full list of endpoints and their corresponding methods to retrieve data.
+
+# Endpoints and Methods
+
+Use the methods below to easily consume endpoint data from the FareHarbor External API.  Please note that in all methods below `company` refers to a Company object.  For more information on how to instantiate a company object, please visit the 'Primary Usage section.'
+
+## All Companies
+
+    Endpoint: GET /companies/
+
+    Method:   FH::Companies.all
+
+Returns an array of Company objects; note that this may include companies that have no bookable availabilities. You can call methods on each Company object to return specific company data.  For more information on how to use a single Company object, please see 'Primary Usage'.
+
+You can find the API information for all companies [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
+
+## Lodgings
+
+    Endpoint: GET /companies/<shortname>/lodgings/
+
+    Method:   company.lodgings
+
+Returns an array of Lodging objects.  
+
+A Lodging has the follwing attributes which can be accessed by calling them as methods:
+
+    lodging = company.lodgings.first
+
+    lodging.name  
+    lodging.is_self_lodging
+    lodging.url
+    lodging.phone
+    lodging.address
+    lodging.pk  
+
+You can find the API information for all lodgings [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#lodgings).
+
+## Availability Lodgings
+
+    Endpoint: GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
+
+    Method:   company.availability_lodgings(<availability pk>)
+
+Returns an array of Lodging objects that include availability specific data.  Method accepts lodging 'pk' as an argument passed in as an integer.
+
+A Lodging has the following attributes which can be accessed by calling them as methods:
+
+    lodging = company.availability_lodgings(<availability pk>).first
+
+    lodging.name  
+    lodging.is_self_lodging
+    lodging.url
+    lodging.phone
+    lodging.address
+    lodging.pk  
+    lodging.is_pickup_available
+
+You can find the API information for all availability lodgings [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#availability-lodgings).
+
+## Items
+
+    Endpoint: GET /companies/<shortname>/items/
+
+    Method:   company.items
+
+Returns an array of Item objects for which you have permission to create bookings; again, note that this may include items that have no bookable availabilities.
 
 
+An Item has the following attributes which can be accessed by calling them as methods:
 
-### Paths
+    item = company.items.first
 
-All endpoints are rooted at `https://fareharbor.com/api/external/v1/`.
+    item.image_cdn_url
+    item.name  
+    item.cancellation_policy_safe_html
+    item.headline
+    item.cancellation_policy
+    item.is_pickup_ever_available
+    item.description_safe_html
+    item.location
+    item.customer_prototypes
+    item.images
+    item.pk
+    item.tax_percentage
+    item.description
 
-Use the methods below to access JSON data corresponding with each endpoint:
-
-`GET /companies/`
-
-You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
-
-Returns a list of all companies for which you have permission to create bookings;
-note that this may include companies that have no bookable availabilities.
+You can find the API information for all items [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#items).
 
 
-Method:
-
-    FH::Companies.all
+## Availabilities
 
 
-The example response from the API is as below:
+**Single Availability**
 
-     [
-        {
-          "shortname": "hawaiianadventures",
-          "name": "Hawaiian Adventures"
-        }, {
-          "shortname": "surflessonshawaii",
-          "name": "Surf Lessons Hawaii"
-        }
-      ]
+    Endpoint: GET /companies/<shortname>/availabilities/<Availability.pk>/
 
-With the wrapper, the response from the API is transposed into `Company` objects:
+    Method:   company.availabilities
 
-    [#<FH::Company:0x007fd17b8f17c8 @name="Hawaiian Adventures", @shortname="hawaiianadventures">,
-    #<FH::Company:0x007fd17b8f15e8 @name="Surf Lessons Hawaii", @shortname="surflessonshawaii">]
+Returns an Availability object.
 
-as an array, you can call typical array methods to choose a particular company to call `Company` methods on, although it may be preferable to find a `Company` and call the methods that way.
+**Availabilities By Date:**
 
-`GET /companies/<shortname>/lodgings/`
+    Endpoint: GET /companies/<shortname>/items/<item.pk>/availabilities/date/<date>/
 
-You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#lodgings).
+    Method:   company.availabilities_by_date({pk: <availability pk>, date: '<availability date>'})
 
-Returns a list of all lodgings for a specific company.
+**Availabilities By Date Range:**
 
-The easiest way to use this would be something like this:
+    Endpoint: GET /companies/<shortname>/items/<item.pk>/availabilities/date-range/<start-date>/<end-date>/
 
-    FH::Companies.find(<company shortname>).company.lodgings
+    Method:   company.availabilities_by_date_range({pk: <availability pk>, start_date: '<availability start date>', end_date: '<availability end date>'})
 
-Example response
+Returns an array of Availability objects.  Returns possibly-bookable availabilities for date, or for the range start-date through end-date. Note that possibly-bookable availabilities include those for which customers are requested to "call to book". Note that 'date', 'start_date', and 'end_date' should be in the format 'YYYY-MM-DD' and passed in a string, while the availability 'pk' should be passed in as an integer. When searching for an availability by date, these values must all be passed in through a single hash.
 
-    [
-      {
-       "pk": 231,
-       "name": "Wyndham Royal Garden",
-       "phone": "(808) 943-0202",
-       "address": "440 Olohana St Honolulu, HI 96815",
-       "url": "https:\/\/www.extraholidays.com\/honolulu-hawaii\/royal-garden-at-waikiki.aspx",
-       "is_self_lodging": false
+An Availability has the following attributes which can be accessed by calling them as methods:
+
+    availability = company.availabilities.first
+    availability = company.availabilities_by_date({pk: <availability pk>, date: '<availability date>'}).first
+    availability = company.availabilities_by_date_range({pk: <availability pk>, start_date: '<availability start date>', end_date: '<availability end date>'}).first
+
+    availability.capacity
+    availability.customer_type_rates
+    availability.custom_field_instances
+    availability.item
+    availability.pk
+    availability.start_at
+    availability.end_at
+
+You can find the API information for all availabilities [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#availabilities).
+
+
+## Bookings
+
+The following booking methods each return a Booking object.
+
+A Booking has the following attributes which can be accessed by calling them as methods:
+
+        booking = company.booking('<booking uuid>')
+
+        booking.display_id
+        booking.status
+        booking.customers
+        booking.uuid
+        booking.receipt_taxes
+        booking.note_safe_html
+        booking.receipt_subtotal
+        booking.arrival
+        booking.rebooked_to
+        booking.confirmation_url
+        booking.note
+        booking.receipt_total
+        booking.pickup
+        booking.contact
+        booking.invoice_price
+        booking.custom_field_values
+        booking.pk
+        booking.rebooked_from
+        booking.external_id
+        booking.availability
+        booking.voucher_number
+
+### Find A Single Booking
+
+    Endpoint: GET /companies/<shortname>/bookings/<Booking.uuid>/
+
+    Method:   company.booking('<booking uuid>')
+
+Booking method accepts booking 'uuid' as an argument passed in as a string.
+
+### Create And Validate A Booking
+
+**Create a Booking:**
+
+    Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/
+
+    Method:   company.post_booking(booking_data)
+
+**Validate a Booking:**
+
+    Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/validate/
+
+    Method:   company.post_verify_booking(booking_data)
+
+These post requests accept a hash as an argument in the following format:
+
+        booking_data = {
+        pk: <availability pk (integer)>,
+        company_shortname: '<company shortname (string)>',
+        name: '<name (string)>',
+        phone: '<phone (string)>',
+        email: '<email (string)>',
+        customer_type_rates: [<customer type rate (integer)>, <customer type rate (integer)>]
+        note: '<note (string)>',
+        voucher_number: '<voucher number (string)'
       }
-    ]
 
-With the wrapper, the response from the API is transposed into an array of `Lodging` objects:
+Please note the class of each value in the hash.  Also note that customer type rates are represented by an array of integers.
 
-    [#<FH::Company::Lodging:0x007fd1a1a58f50 @name="Alii Cove", @is_self_lodging=false, @url="", @phone="", @address="", @pk=555>, #<FH::Company::Lodging:0x007fd1a1a58eb0 @name="Alii Lani", @is_self_lodging=false, @url="", @phone="", @address="", @pk=556>]
 
-`GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
-    FH::Company.availability_lodgings`
+### Delete A Booking
 
-You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#availability-lodgings).
+    Endpoint: DELETE /companies/<shortname>/bookings/<Booking.uuid>/
 
-Returns a list of all lodgings for a particular availability.
+    Method:   company.cancel_booking('<booking uuid>')
 
-the easiest way to call it would be something like this:
 
-    company = FH::Company.find(<company shortname>)
-    company.availability_lodgings(<availability pk>)
+You can find the API information for all bookings [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#bookings).
 
-Example response:
 
-    {
-      "lodgings": [
-        {
-          "pk": 231,
-          "name": "Wyndham Royal Garden",
-          "is_pickup_available": true
-        }
-      ]
-    }
+## Troubleshooting
 
-With the wrapper, the response from the API is transposed into an array of `Lodging` objects for the specific availability:
+Some methods refer to `Companies` while others refer to `Company`.  Please double-check the documentation above to ensure your syntax is correct.
 
-    [#<FH::Company::Lodging:0x007fd1a3567d28 @name="Chalet Kilauea - The Chalet Kilauea Collection", @is_self_lodging=nil, @url=nil, @phone=nil, @address=nil, @pk=565>, #<FH::Company::Lodging:0x007fd1a3567d00 @name="Club At Waikoloa Beach Resort by Hilton Grand Vacations", @is_self_lodging=nil, @url=nil, @phone=nil, @address=nil, @pk=566>]
-...
+Many methods take a hash as an argument.  Check the documentation above to make sure you are inputting your arguments correctly, and have included all the necessary arguments and formatted them correctly.
 
-    GET /companies/<shortname>/items/
-    FH::Company.items
-
-    GET /companies/<shortname>/items/<item.pk>/availabilities/date/<date>/
-    FH::Company.availabilities_by_date
-
-    GET /companies/<shortname>/items/<item.pk>/availabilities/date-range/<start-date>/<end-date>/
-    FH::Company.availabilities_by_date_range
-
-    GET /companies/<shortname>/availabilities/<Availability.pk>/
-    FH::Company.availabilities
-
-    POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/
-    FH::Company
-
-    GET /companies/<shortname>/bookings/<Booking.uuid>/
-    FH::Company.bookings
-
-    DELETE /companies/<shortname>/bookings/<Booking.uuid>/
-    FH::Company
-
-    POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/validate/
-    FH::Company
+If you are having difficult setting your environment variables, make sure they are properly working by first testing them out in Postman.
 
 ## Development
 
