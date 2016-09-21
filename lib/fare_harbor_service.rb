@@ -73,15 +73,15 @@ class FareHarborService
     parse(response)
   end
 
-  def format_booking_body(booking_hash)
+  def format_booking_body(booking_request)
     {
-      "voucher_number": booking_hash[:voucher_number],
+      "voucher_number": booking_request[:voucher_number],
       "contact": {
-        "name": booking_hash[:name],
-        "phone": booking_hash[:phone],
-        "email": booking_hash[:email]
+        "name": booking_request[:name],
+        "phone": booking_request[:phone],
+        "email": booking_request[:email]
       },
-      "customers": customer_types(booking_hash[:customer_type_rates]),
+      "customers": customer_types(booking_request[:customer_type_rates]),
       "note": "Optional booking note"
     }
   end

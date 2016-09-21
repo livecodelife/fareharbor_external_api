@@ -41,8 +41,10 @@ Your key names must match the above key names exactly.  Once you are done, make 
 
 You can either set your keys using the Figaro gem (instructions above) or inside your bash profile.  To set your keys inside your bash profile, open your bash profile and add the following lines:
 
-    export FAREHARBOR_API_APP_KEY=<your_api_app_key>
-    export FAREHARBOR_API_USER_KEY=<your_api_user_key>
+```
+export FAREHARBOR_API_APP_KEY=<your_api_app_key>
+export FAREHARBOR_API_USER_KEY=<your_api_user_key>
+```
 
 To save your changes, enter the following in your command line:
 

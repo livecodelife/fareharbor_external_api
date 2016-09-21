@@ -1,0 +1,198 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://demo.fareharbor.com/api/external/v1/companies/?api-app=5fa25381-5ec6-4e86-8b4e-a95735beffa4&api-user=1be378f8-8a6f-4788-b7f0-c2c9b02ca009
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - must-revalidate
+      - no-cache
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 15 Sep 2016 23:59:20 GMT
+      Expires:
+      - Thu, 15 Sep 2016 23:59:19 GMT
+      P3p:
+      - CP="This is not a P3P policy."
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Set-Cookie:
+      - fh-email="zackforbing@gmail.com"; expires=Thu, 22-Sep-2016 23:59:20 GMT; Max-Age=604800;
+        Path=/
+      - fh-name=API; expires=Thu, 22-Sep-2016 23:59:20 GMT; Max-Age=604800; Path=/
+      - fh-shortname=turing-school; expires=Thu, 22-Sep-2016 23:59:20 GMT; Max-Age=604800;
+        Path=/
+      - fh-username=api; expires=Thu, 22-Sep-2016 23:59:20 GMT; Max-Age=604800; Path=/
+      Vary:
+      - Accept-Encoding
+      - Cookie
+      X-Fh-Appserver:
+      - demo-appservers-b-0
+      X-Fh-Loadbalancer:
+      - demo-loadbalancers-b-0
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: '{"companies":[{"shortname":"bodyglove","name":"Body Glove"},{"shortname":"islandsailing","name":"Island
+        Sailing"},{"shortname":"sharktourshawaii","name":"North Shore Shark Adventures"}]}'
+    http_version: 
+  recorded_at: Thu, 15 Sep 2016 23:59:20 GMT
+- request:
+    method: get
+    uri: https://demo.fareharbor.com/api/external/v1/companies/bodyglove/lodgings/?api-app=5fa25381-5ec6-4e86-8b4e-a95735beffa4&api-user=1be378f8-8a6f-4788-b7f0-c2c9b02ca009
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - must-revalidate
+      - no-cache
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 15 Sep 2016 23:59:21 GMT
+      Expires:
+      - Thu, 15 Sep 2016 23:59:20 GMT
+      P3p:
+      - CP="This is not a P3P policy."
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Set-Cookie:
+      - fh-email="zackforbing@gmail.com"; expires=Thu, 22-Sep-2016 23:59:21 GMT; Max-Age=604800;
+        Path=/
+      - fh-name=API; expires=Thu, 22-Sep-2016 23:59:21 GMT; Max-Age=604800; Path=/
+      - fh-shortname=turing-school; expires=Thu, 22-Sep-2016 23:59:21 GMT; Max-Age=604800;
+        Path=/
+      - fh-username=api; expires=Thu, 22-Sep-2016 23:59:21 GMT; Max-Age=604800; Path=/
+      Vary:
+      - Accept-Encoding
+      - Cookie
+      X-Fh-Appserver:
+      - demo-appservers-b-1
+      X-Fh-Loadbalancer:
+      - demo-loadbalancers-a-0
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Length:
+      - '1690'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: '{"lodgings":[{"name":"Alii Cove","is_self_lodging":false,"url":"","phone":"","address":"","pk":555},{"name":"Alii
+        Lani","is_self_lodging":false,"url":"","phone":"","address":"","pk":556},{"name":"Alii
+        Villa Condominium","is_self_lodging":false,"url":"","phone":"(808) 329-1288","address":"","pk":557},{"name":"Aston
+        Shores at Waikoloa","is_self_lodging":false,"url":"","phone":"(808) 886-5001","address":"","pk":558},{"name":"Aston
+        Waikoloa Colony Villas","is_self_lodging":false,"url":"","phone":"(808) 886-8899","address":"","pk":559},{"name":"Banyan
+        Tree Condominiums","is_self_lodging":false,"url":"","phone":"(808) 329-3006","address":"","pk":560},{"name":"Bay
+        Club at Waikoloa Beach Resort","is_self_lodging":false,"url":"","phone":"(808)
+        886-7979","address":"","pk":561},{"name":"Bed \u0026 Breakfast","is_self_lodging":false,"url":"","phone":"","address":"","pk":562},{"name":"Camping","is_self_lodging":false,"url":"","phone":"","address":"","pk":563},{"name":"Casa-De-Emdeko","is_self_lodging":false,"url":"","phone":"(808)
+        329-2160","address":"","pk":564},{"name":"Chalet Kilauea - The Chalet Kilauea
+        Collection","is_self_lodging":false,"url":"","phone":"(808) 967-7786","address":"","pk":565},{"name":"Club
+        At Waikoloa Beach Resort by Hilton Grand Vacations","is_self_lodging":false,"url":"","phone":"(808)
+        886-8700","address":"","pk":566},{"name":"Courtyard King Kamehameha''s Kona
+        Beach Hotel","is_self_lodging":false,"url":"","phone":"(808) 329-2911","address":"","pk":567},{"name":"Cruise
+        Ship","is_self_lodging":false,"url":"","phone":"","address":"","pk":568},{"name":"Day
+        Only","is_self_lodging":false,"url":"","phone":"","address":"","pk":569},{"name":"Dragonfly
+        Ranch","is_self_lodging":false,"url":"","phone":"(808) 328-2159","address":"","pk":570},{"name":"Four
+        Seasons","is_self_lodging":false,"url":"","phone":"","address":"","pk":571},{"name":"Hale
+        Kona Kai Condominium","is_self_lodging":false,"url":"","phone":"(800) 421-3696","address":"","pk":572},{"name":"Halii
+        Kai At Waikoloa","is_self_lodging":false,"url":"","phone":"(808) 886-4307","address":"","pk":573},{"name":"Hapuna
+        Beach Prince Hotel","is_self_lodging":false,"url":"","phone":"(808) 880-1111","address":"","pk":574},{"name":"Hilo
+        Hawaiian Hotel","is_self_lodging":false,"url":"","phone":"(808) 935-9361","address":"","pk":575},{"name":"Hilo
+        Seaside Hotel","is_self_lodging":false,"url":"","phone":"(808) 935-0821","address":"","pk":576},{"name":"Hilton
+        Waikoloa Village","is_self_lodging":false,"url":"","phone":"(808) 886-1234","address":"","pk":577},{"name":"Holiday
+        Inn Express","is_self_lodging":false,"url":"","phone":"(808) 329-2599","address":"","pk":578},{"name":"Holualoa
+        Inn","is_self_lodging":false,"url":"","phone":"(808) 324-1121","address":"","pk":580},{"name":"Holua
+        Resort at the Mauna Loa Village","is_self_lodging":false,"url":"","phone":"(808)
+        324-1550","address":"","pk":579},{"name":"Hualalai Resort","is_self_lodging":false,"url":"","phone":"(808)
+        325-8400","address":"","pk":581},{"name":"Kahaluu Bay Villas","is_self_lodging":false,"url":"","phone":"(808)
+        322-0013","address":"","pk":582},{"name":"Kailua Pier","is_self_lodging":false,"url":"","phone":"","address":"","pk":583},{"name":"Kanaloa
+        at Kona by Outrigger","is_self_lodging":false,"url":"","phone":"(808) 322-9625","address":"","pk":584},{"name":"Keauhou-Kona
+        Surf\/Racquet","is_self_lodging":false,"url":"","phone":"(808) 322-9131","address":"","pk":586},{"name":"Keauhou
+        Resort Condominiums","is_self_lodging":false,"url":"","phone":"(808) 322-9122","address":"","pk":585},{"name":"Kilauea
+        Lodge","is_self_lodging":false,"url":"","phone":"(808) 967-7366","address":"","pk":587},{"name":"Kilauea
+        Military Camp","is_self_lodging":false,"url":"","phone":"(808) 967-8333","address":"","pk":588},{"name":"Kings''
+        Land by Hilton Grand Vacations Club","is_self_lodging":false,"url":"","phone":"(808)
+        881-3000","address":"","pk":589},{"name":"Kohala Suites","is_self_lodging":false,"url":"","phone":"(808)
+        886-8700","address":"","pk":590},{"name":"Kohala Village Inn","is_self_lodging":false,"url":"","phone":"(808)
+        889-0404","address":"","pk":591},{"name":"Kolea at Waikoloa Beach Resort","is_self_lodging":false,"url":"","phone":"(808)
+        987-4519","address":"","pk":592},{"name":"Kona Bali Kai By Castle Lodging","is_self_lodging":false,"url":"","phone":"","address":"","pk":593},{"name":"Kona
+        Billfisher Resort","is_self_lodging":false,"url":"","phone":"(808) 329-9277","address":"","pk":594},{"name":"Kona
+        by the Sea By Aston","is_self_lodging":false,"url":"","phone":"(808) 327-2300","address":"","pk":595},{"name":"Kona
+        Coast Resort","is_self_lodging":false,"url":"","phone":"(808) 324-1721","address":"","pk":596},{"name":"Kona
+        Hawaiian Resort by Wyndham","is_self_lodging":false,"url":"","phone":"(808)
+        334-4700","address":"","pk":597},{"name":"Kona Islander Inn Hotel","is_self_lodging":false,"url":"","phone":"(808)
+        329-3333","address":"","pk":598},{"name":"Kona Isle Condominums","is_self_lodging":false,"url":"","phone":"(808)
+        329-2241","address":"","pk":599},{"name":"Kona Magic Sands","is_self_lodging":false,"url":"","phone":"(800)
+        244-4752","address":"","pk":600},{"name":"Kona Makai Condominiums","is_self_lodging":false,"url":"","phone":"(808)
+        329-1511","address":"","pk":601},{"name":"Kona Mansions Vacation Rentals","is_self_lodging":false,"url":"","phone":"(808)
+        329-2374","address":"","pk":602},{"name":"Kona Pacific Condominium","is_self_lodging":false,"url":"","phone":"(808)
+        329-6140","address":"","pk":603},{"name":"Kona Pacific Vacation Rentals","is_self_lodging":false,"url":"","phone":"(808)
+        329-6140","address":"","pk":604},{"name":"Kona Reef","is_self_lodging":false,"url":"","phone":"","address":"","pk":605},{"name":"Kona
+        Riviera Villa","is_self_lodging":false,"url":"","phone":"(808) 329-1996","address":"","pk":606},{"name":"Kona
+        Seaside Hotel","is_self_lodging":false,"url":"","phone":"(808) 329-2455","address":"","pk":608},{"name":"Kona
+        Sea Village Hotel","is_self_lodging":false,"url":"","phone":"(808) 326-2252","address":"","pk":607},{"name":"Kona
+        Shores House of Turtle Condo Rental","is_self_lodging":false,"url":"","phone":"(831)
+        338-2983","address":"","pk":609},{"name":"Kona Tiki Hotel","is_self_lodging":false,"url":"","phone":"(808)
+        329-1425","address":"","pk":610},{"name":"Kona Westwind Condos","is_self_lodging":false,"url":"","phone":"(808)
+        329-6222","address":"","pk":611},{"name":"Kuakini Terrace","is_self_lodging":false,"url":"","phone":"(808)
+        322-3441","address":"","pk":612},{"name":"Local Residence","is_self_lodging":false,"url":"","phone":"","address":"","pk":613},{"name":"Mauna
+        Kea Beach Hotel","is_self_lodging":false,"url":"","phone":"(808) 882-7222","address":"","pk":614},{"name":"Mauna
+        Kea Fairways","is_self_lodging":false,"url":"","phone":"(808) 882-7222","address":"","pk":615},{"name":"Mauna
+        Lani Bay Hotel \u0026 Bungalows","is_self_lodging":false,"url":"","phone":"(808)
+        885-6622","address":"","pk":616},{"name":"Mauna Loa Village by Wyndham","is_self_lodging":false,"url":"","phone":"(808)
+        969-3333","address":"","pk":617},{"name":"Outrigger Fairway Villas","is_self_lodging":false,"url":"","phone":"(808)
+        886-0036","address":"","pk":618},{"name":"Outrigger Reef on the Beach","is_self_lodging":false,"url":"","phone":"(808)
+        923-3111","address":"","pk":619},{"name":"Paniolo Greens Resort","is_self_lodging":false,"url":"","phone":"(888)
+        450-4646","address":"","pk":620},{"name":"Private Residence (Private Residence)","is_self_lodging":false,"url":"","phone":"","address":"","pk":621},{"name":"Royal
+        Kahili Condominiums","is_self_lodging":false,"url":"","phone":"(808) 333-4270","address":"","pk":622},{"name":"Royal
+        Kona Resort","is_self_lodging":false,"url":"","phone":"(808) 329-3111","address":"","pk":623},{"name":"Royal
+        Sea Cliff by Outrigger","is_self_lodging":false,"url":"","phone":"(808) 329-8021","address":"","pk":624},{"name":"Sheraton
+        Kona Resort \u0026 Spa - Keauhou Bay","is_self_lodging":false,"url":"","phone":"(808)
+        930-4900","address":"","pk":625},{"name":"The Fairmont Orchid, Hawaii","is_self_lodging":false,"url":"","phone":"(808)
+        885-2000","address":"","pk":626},{"name":"The Kamuela Inn","is_self_lodging":false,"url":"","phone":"(808)
+        886-0036","address":"","pk":627},{"name":"The Sea Village","is_self_lodging":false,"url":"","phone":"(808)
+        326-2252","address":"","pk":628},{"name":"Uncle Billy''s - Hilo Bay Hotel","is_self_lodging":false,"url":"","phone":"(808)
+        935-0861","address":"","pk":629},{"name":"Uncle Billy''s Kona Bay Hotel","is_self_lodging":false,"url":"","phone":"","address":"","pk":630},{"name":"Unknown","is_self_lodging":false,"url":"","phone":"","address":"","pk":631},{"name":"Vacation
+        International Sea Mountain","is_self_lodging":false,"url":"","phone":"","address":"","pk":632},{"name":"Volcano
+        Village Lodge","is_self_lodging":false,"url":"","phone":"(808) 985-9500","address":"","pk":633},{"name":"Waikoloa
+        Beach Marriott Resort \u0026 Spa","is_self_lodging":false,"url":"","phone":"(808)
+        886-6789","address":"","pk":634},{"name":"Waikoloa Beach Resort","is_self_lodging":false,"url":"","phone":"(877)
+        924-5656","address":"","pk":635},{"name":"White Sands Hotel","is_self_lodging":false,"url":"","phone":"(808)
+        954-7429","address":"","pk":636},{"name":"WorldMark by Wyndham","is_self_lodging":false,"url":"","phone":"(808)
+        322-9131","address":"","pk":637}]}'
+    http_version: 
+  recorded_at: Thu, 15 Sep 2016 23:59:21 GMT
+recorded_with: VCR 3.0.3
