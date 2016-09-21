@@ -22,8 +22,6 @@ Or install it yourself as:
 
 To get started with the FareHarbor External API Gem, you will need to request access keys from FareHarbor. Please contact <support@fareharbor.com> to request access to the FareHarbor External API.
 
-Once you have your keys, you will need to save them.
-
 #### Setting Up Your Access Keys
 
 Once you have your access keys, you will need to set them as environment variables to work with the gem.  Below are two options for setting your environment variables.
@@ -41,7 +39,7 @@ Your key names must match the above key names exactly.  Once you are done, make 
 
 ###### For Local Use
 
-You can either set your keys using the Figaro gem (instructions above) or inside your bash profile.  To set your keys inside your bash profile, open your bash profile and add the following:
+You can either set your keys using the Figaro gem (instructions above) or inside your bash profile.  To set your keys inside your bash profile, open your bash profile and add the following lines:
 
     export FAREHARBOR_API_APP_KEY=<your_api_app_key>
     export FAREHARBOR_API_USER_KEY=<your_api_user_key>
@@ -53,7 +51,7 @@ To save your changes, enter the following in your command line:
 
 ## Usage
 
-The FareHarbor External API Gem is a wrapper for the FareHarbor External API.  Each endpoint returns data for companies associated with an affiliate or that the API-user has permission to access.
+The FareHarbor External API Gem is a wrapper for the FareHarbor External API.  Each endpoint of the API returns data for companies associated with an affiliate or that the API-user has permission to access.
 
 All endpoints are rooted at `https://fareharbor.com/api/external/v1/`.  
 
@@ -68,7 +66,6 @@ To access a single affiliate company, you can use the find method. This will ret
 You can now call methods on that company object to retrieve data about the company.  Here is a sample method being called on the company object after is has been saved as variable:
 
 `company.items`
-
 
 If you know the company shortname and name, you can also manually create an instance of a company.  Please note that if you choose to instantiate a company this way, you will need to pass in your data as a hash indicating the company shortname and name:
 
@@ -100,6 +97,10 @@ Company Attributes:
     company.shortname
 
     name
+
+
+The example response from the API is as below:
+
      [
         {
           "shortname": "hawaiianadventures",
@@ -114,6 +115,46 @@ Company Attributes:
 
     GET /companies/<shortname>/lodgings/
     FH::Company.lodgings
+
+
+
+With the wrapper, this is transposed into `Company` objects:
+
+    [#<FH::Company:0x007fd17b8f17c8 @name="Hawaiian Adventures", @shortname="hawaiianadventures">,
+    #<FH::Company:0x007fd17b8f15e8 @name="Surf Lessons Hawaii", @shortname="surflessonshawaii">]
+
+as an array, you can call typical array methods to choose a particular company to call `Company` methods on, although it may be preferable to find a `Company` and call the methods that way.
+
+You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
+
+    `GET /companies/<shortname>/lodgings/`
+
+Returns a list of all lodgings for a specific company.
+
+Method:
+
+    FH::Company.lodgings
+
+The easiest way to use this would be something like this:
+
+    company = FH::Companies.find(<company shortname>)
+
+    company.lodgings
+
+Example response
+
+    [
+     {
+       "pk": 231,
+       "name": "Wyndham Royal Garden",
+       "phone": "(808) 943-0202",
+       "address": "440 Olohana St Honolulu, HI 96815",
+       "url": "https:\/\/www.extraholidays.com\/honolulu-hawaii\/royal-garden-at-waikiki.aspx",
+       "is_self_lodging": false
+     }
+    ]
+
+...
 
     GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
     FH::Company.availability_lodgings
