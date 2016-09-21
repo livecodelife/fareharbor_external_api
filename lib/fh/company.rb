@@ -38,12 +38,12 @@ module FH
 
     def lodgings
       lodgings = service.get_lodgings(shortname)
-      lodgings[:lodgings].map { |lodging| FH::Company::Lodging.new(lodging) }
+      create_lodgings(lodgings)
     end
 
     def availability_lodgings(pk)
       lodgings = service.get_availability_lodgings(shortname, pk)
-      lodgings[:lodgings].map { |lodging| FH::Company::Lodging.new(lodging) }
+      create_lodgings(lodgings)
     end
 
     def create_booking(booking_request)
@@ -61,4 +61,10 @@ module FH
       FH::Company::Booking.new(cancelled_booking[:booking])
     end
   end
+
+  private
+
+    def create_lodgings(lodgings)
+      lodgings[:lodgings].map { |lodging| FH::Company::Lodging.new(lodging) }
+    end
 end
