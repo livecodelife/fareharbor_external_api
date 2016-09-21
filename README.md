@@ -27,7 +27,7 @@ To get started with the FareHarbor External API Gem, you will need to request ac
 
 Once you have your access keys, you will need to set them as environment variables to work with the gem.  Below are two options for setting your environment variables.
 
-### For Use in Production
+## For Use in Production
 
 We recommend using the Figaro gem to set your environment variables.  Follow the directions to set your keys [here.](https://github.com/laserlemon/figaro#example)
 
@@ -242,7 +242,7 @@ A Booking has the following attributes which can be accessed by calling them as 
         booking.availability
         booking.voucher_number
 
-##### Find A Single Booking
+#### Find A Single Booking
 
     Endpoint: GET /companies/<shortname>/bookings/<Booking.uuid>/
 
@@ -250,7 +250,7 @@ A Booking has the following attributes which can be accessed by calling them as 
 
 Booking method accepts booking 'uuid' as an argument passed in as a string.
 
-##### Create And Validate A Booking
+#### Create And Validate A Booking
 
 **Create a Booking:**
 
@@ -280,7 +280,7 @@ These post requests accept a hash as an argument in the following format:
 Please note the class of each value in the hash.  Also note that customer type rates are represented by an array of integers.
 
 
-##### Delete A Booking
+#### Delete A Booking
 
     Endpoint: DELETE /companies/<shortname>/bookings/<Booking.uuid>/
 
