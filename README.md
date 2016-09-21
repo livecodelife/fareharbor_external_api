@@ -47,8 +47,10 @@ Your key names must match the above key names exactly.  Once you are done, make 
 
 You can either set your keys using the Figaro gem (instructions above) or inside your bash profile.  To set your keys inside your bash profile, open your bash profile and add the following lines:
 
-    export FAREHARBOR_API_APP_KEY=<your_api_app_key>
-    export FAREHARBOR_API_USER_KEY=<your_api_user_key>
+```
+export FAREHARBOR_API_APP_KEY=<your_api_app_key>
+export FAREHARBOR_API_USER_KEY=<your_api_user_key>
+```
 
 To save your changes, enter the following in your command line:
 
@@ -91,6 +93,8 @@ Use the methods below to access JSON data corresponding with each endpoint:
 
 `GET /companies/`
 
+You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
+
 Returns a list of all companies for which you have permission to create bookings;
 note that this may include companies that have no bookable availabilities.
 
@@ -112,49 +116,68 @@ The example response from the API is as below:
         }
       ]
 
-
-
-
-With the wrapper, this is transposed into `Company` objects:
+With the wrapper, the response from the API is transposed into `Company` objects:
 
     [#<FH::Company:0x007fd17b8f17c8 @name="Hawaiian Adventures", @shortname="hawaiianadventures">,
     #<FH::Company:0x007fd17b8f15e8 @name="Surf Lessons Hawaii", @shortname="surflessonshawaii">]
 
 as an array, you can call typical array methods to choose a particular company to call `Company` methods on, although it may be preferable to find a `Company` and call the methods that way.
 
-You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
+`GET /companies/<shortname>/lodgings/`
 
-    `GET /companies/<shortname>/lodgings/`
+You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#lodgings).
 
 Returns a list of all lodgings for a specific company.
 
-Method:
-
-    FH::Company.lodgings
-
 The easiest way to use this would be something like this:
 
-    company = FH::Companies.find(<company shortname>)
-
-    company.lodgings
+    FH::Companies.find(<company shortname>).company.lodgings
 
 Example response
 
     [
-     {
+      {
        "pk": 231,
        "name": "Wyndham Royal Garden",
        "phone": "(808) 943-0202",
        "address": "440 Olohana St Honolulu, HI 96815",
        "url": "https:\/\/www.extraholidays.com\/honolulu-hawaii\/royal-garden-at-waikiki.aspx",
        "is_self_lodging": false
-     }
+      }
     ]
 
-...
+With the wrapper, the response from the API is transposed into an array of `Lodging` objects:
 
-    GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
-    FH::Company.availability_lodgings
+    [#<FH::Company::Lodging:0x007fd1a1a58f50 @name="Alii Cove", @is_self_lodging=false, @url="", @phone="", @address="", @pk=555>, #<FH::Company::Lodging:0x007fd1a1a58eb0 @name="Alii Lani", @is_self_lodging=false, @url="", @phone="", @address="", @pk=556>]
+
+`GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
+    FH::Company.availability_lodgings`
+
+You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#availability-lodgings).
+
+Returns a list of all lodgings for a particular availability.
+
+the easiest way to call it would be something like this:
+
+    company = FH::Company.find(<company shortname>)
+    company.availability_lodgings(<availability pk>)
+
+Example response:
+
+    {
+      "lodgings": [
+        {
+          "pk": 231,
+          "name": "Wyndham Royal Garden",
+          "is_pickup_available": true
+        }
+      ]
+    }
+
+With the wrapper, the response from the API is transposed into an array of `Lodging` objects for the specific availability:
+
+    [#<FH::Company::Lodging:0x007fd1a3567d28 @name="Chalet Kilauea - The Chalet Kilauea Collection", @is_self_lodging=nil, @url=nil, @phone=nil, @address=nil, @pk=565>, #<FH::Company::Lodging:0x007fd1a3567d00 @name="Club At Waikoloa Beach Resort by Hilton Grand Vacations", @is_self_lodging=nil, @url=nil, @phone=nil, @address=nil, @pk=566>]
+...
 
     GET /companies/<shortname>/items/
     FH::Company.items
