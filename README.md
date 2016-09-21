@@ -1,9 +1,5 @@
 # FareharborExternalApi
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/fareharbor_external_api`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -45,7 +41,7 @@ Your key names must match the above key names exactly.  Once you are done, make 
 
 ###### For Local Use
 
-You can either set your keys using the Figaro gem (instructions above) or inside your bash profile.  To set your keys inside your bash profile, open your bash profile and add the following lines:
+You can either set your keys using the Figaro gem (instructions above) or inside your bash profile.  To set your keys inside your bash profile, open your bash profile and add the following:
 
     export FAREHARBOR_API_APP_KEY=<your_api_app_key>
     export FAREHARBOR_API_USER_KEY=<your_api_user_key>
@@ -57,48 +53,53 @@ To save your changes, enter the following in your command line:
 
 ## Usage
 
-The FareHarbor External API Gem is a wrapper for the FareHarbor External API.  Each endpoint returns data only for companies that the affiliate / API-user has permission to access.
+The FareHarbor External API Gem is a wrapper for the FareHarbor External API.  Each endpoint returns data for companies associated with an affiliate or that the API-user has permission to access.
+
+All endpoints are rooted at `https://fareharbor.com/api/external/v1/`.  
+
+To see the full JSON output that each endpoint returns, please visit our [endpoint documentation.](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md)
 
 #### Single Company
 
-To access a single company and find data pertaining to that company, you can use the find method.  For ease of use, it is recommended that you save the result to a variable.
+To access a single affiliate company, you can use the find method. This will return a single company object.  For ease of use, it is recommended that you save the result to a variable.
 
-`company = FH::Companies.find('<company shortname goes here>')`
+`company = FH::Companies.find('<company shortname>')`
 
-Now you have the ability to call methods on the affiliate variable. For example
+You can now call methods on that company object to retrieve data about the company.  Here is a sample method being called on the company object after is has been saved as variable:
 
-`company.items('<company shortname goes here>')`
+`company.items`
 
-Is the equivalent of:
 
-`FH::Company.items('<company shortname goes here>')`
+If you know the company shortname and name, you can also manually create an instance of a company.  Please note that if you choose to instantiate a company this way, you will need to pass in your data as a hash indicating the company shortname and name:
 
-#### All Companies
+`company = FH::Company.new({shortname: '<company shortname>', name: '<company name>'})`
 
-To access a list of all affiliate companies, use the all method:
 
-`FH::Companies.all`
+Please see the 'paths' sections below for a full list of methods that can be called on a company object.
 
 
 ### Paths
 
-All endpoints are rooted at `https://fareharbor.com/api/external/v1/`.
-
-Use the methods below to access JSON data corresponding with each endpoint:
+Use the methods below to access affiliate company data:
 
 `GET /companies/`
 
-Returns a list of all companies for which you have permission to create bookings;
-note that this may include companies that have no bookable availabilities.
+Returns all companies belonging to an affiliate.  Data is returned as an array of company objects. You can call methods on each company object in the array to return specific company data; note that this may include companies that have no bookable availabilities.
 
 
 Method:
 
-    FH::Companies.all
+    company = FH::Companies.all
 
 
-Example response:
+Company Attributes:
 
+* shortname
+* name
+
+    company.shortname
+
+    name
      [
         {
           "shortname": "hawaiianadventures",
@@ -108,6 +109,8 @@ Example response:
           "name": "Surf Lessons Hawaii"
         }
       ]
+
+
 
     GET /companies/<shortname>/lodgings/
     FH::Company.lodgings
