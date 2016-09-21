@@ -60,11 +60,11 @@ module FH
       cancelled_booking = service.delete_booking(shortname, uuid)
       FH::Company::Booking.new(cancelled_booking[:booking])
     end
-  end
 
   private
 
     def create_lodgings(lodgings)
       lodgings[:lodgings].map { |lodging| FH::Company::Lodging.new(lodging) }
     end
+  end
 end
