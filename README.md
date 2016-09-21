@@ -71,12 +71,14 @@ If you know the company shortname and name, you can also manually create an inst
 
 `company = FH::Company.new({shortname: '<company shortname>', name: '<company name>'})`
 
-When a company has been instantiated, it has these attributes:
+When a company object has been instantiated, it has these attributes:
 
 * shortname
 * name
 
 You can retrieve those attributes of a company by calling them as methods:
+
+`company = FH::Companies.find('<company shortname>')`
 
 `company.shortname`
 `company.name`
@@ -96,48 +98,36 @@ Use the methods below to easily consume endpoint data from the FareHarbor Extern
 Returns all companies belonging to an affiliate; note that this may include companies that have no bookable availabilities.
 Data is returned as an array of company objects. You can call methods on each company object in the array to return specific company data.  For information about how to use a single company object, please see 'Primary Usage'.
 
+You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
+
 ###### Lodgings
 
     Endpoint: `GET /companies/<shortname>/lodgings/`
 
     Method:   `FH::Company.lodgings`
 
+Returns a list of all lodgings for a specific company.  Data is returned as an array of lodging objects.
 
-With the wrapper, this is transposed into `Company` objects:
+When a lodging has been instantiated, it has these attributes:
 
-    [#<FH::Company:0x007fd17b8f17c8 @name="Hawaiian Adventures", @shortname="hawaiianadventures">,
-    #<FH::Company:0x007fd17b8f15e8 @name="Surf Lessons Hawaii", @shortname="surflessonshawaii">]
+* name
+* is_self_lodging
+* url
+* phone
+* address
+* pk
 
-as an array, you can call typical array methods to choose a particular company to call `Company` methods on, although it may be preferable to find a `Company` and call the methods that way.
+You can retrieve those attributes of a lodging by calling them as methods:
 
-You can find the API information for this endpoint [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
+`lodging = FH::Company.lodgings.first`
 
-    `GET /companies/<shortname>/lodgings/`
+`lodging.name`
+`lodging.is_self_lodging`
+`lodging.url`
+`lodging.phone`
+`lodging.address`
+`lodging.pk`
 
-Returns a list of all lodgings for a specific company.
-
-Method:
-
-    FH::Company.lodgings
-
-The easiest way to use this would be something like this:
-
-    company = FH::Companies.find(<company shortname>)
-
-    company.lodgings
-
-Example response
-
-    [
-     {
-       "pk": 231,
-       "name": "Wyndham Royal Garden",
-       "phone": "(808) 943-0202",
-       "address": "440 Olohana St Honolulu, HI 96815",
-       "url": "https:\/\/www.extraholidays.com\/honolulu-hawaii\/royal-garden-at-waikiki.aspx",
-       "is_self_lodging": false
-     }
-    ]
 
 ###### Availability Lodgings
 
