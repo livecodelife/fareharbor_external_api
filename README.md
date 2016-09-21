@@ -57,7 +57,7 @@ All endpoints are rooted at `https://fareharbor.com/api/external/v1/`.
 
 To see the full JSON output that each endpoint returns, please visit our [endpoint documentation.](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md)
 
-#### Single Company
+#### Primary Usage
 
 To access a single affiliate company, you can use the find method. This will return a single company object.  For ease of use, it is recommended that you save the result to a variable.
 
@@ -71,51 +71,36 @@ If you know the company shortname and name, you can also manually create an inst
 
 `company = FH::Company.new({shortname: '<company shortname>', name: '<company name>'})`
 
-
-Please see the 'paths' sections below for a full list of methods that can be called on a company object.
-
-
-### Paths
-
-Use the methods below to access affiliate company data:
-
-`GET /companies/`
-
-Returns all companies belonging to an affiliate.  Data is returned as an array of company objects. You can call methods on each company object in the array to return specific company data; note that this may include companies that have no bookable availabilities.
-
-
-Method:
-
-    company = FH::Companies.all
-
-
-Company Attributes:
+When a company has been instantiated, it has these attributes:
 
 * shortname
 * name
 
-    company.shortname
+You can retrieve those attributes of a company by calling them as methods:
 
-    name
+`company.shortname`
+`company.name`
 
+Please see the 'Endpoints and Methods' sections below for a full list of endpoints and their corresponding methods to retrieve data.
 
-The example response from the API is as below:
+### Endpoints and Methods
 
-     [
-        {
-          "shortname": "hawaiianadventures",
-          "name": "Hawaiian Adventures"
-        }, {
-          "shortname": "surflessonshawaii",
-          "name": "Surf Lessons Hawaii"
-        }
-      ]
+Use the methods below to easily consume endpoint data from the FareHarbor External API:
 
+###### All Companies
 
+    Endpoint: `GET /companies/`
 
-    GET /companies/<shortname>/lodgings/
-    FH::Company.lodgings
+    Method:   `FH::Companies.all`
 
+Returns all companies belonging to an affiliate; note that this may include companies that have no bookable availabilities.
+Data is returned as an array of company objects. You can call methods on each company object in the array to return specific company data.  For information about how to use a single company object, please see 'Primary Usage'.
+
+###### Lodgings
+
+    Endpoint: `GET /companies/<shortname>/lodgings/`
+
+    Method:   `FH::Company.lodgings`
 
 
 With the wrapper, this is transposed into `Company` objects:
@@ -154,34 +139,54 @@ Example response
      }
     ]
 
-...
+###### Availability Lodgings
 
-    GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
-    FH::Company.availability_lodgings
+    Endpoint: GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
+    Method:   FH::Company.availability_lodgings
 
-    GET /companies/<shortname>/items/
-    FH::Company.items
+###### Items
 
-    GET /companies/<shortname>/items/<item.pk>/availabilities/date/<date>/
-    FH::Company.availabilities_by_date
+    Endpoint: GET /companies/<shortname>/items/
+    Method:   FH::Company.items
 
-    GET /companies/<shortname>/items/<item.pk>/availabilities/date-range/<start-date>/<end-date>/
-    FH::Company.availabilities_by_date_range
+###### Availabilities By Date
 
-    GET /companies/<shortname>/availabilities/<Availability.pk>/
-    FH::Company.availabilities
+    Endpoint: GET /companies/<shortname>/items/<item.pk>/availabilities/date/<date>/
+    Method:   FH::Company.availabilities_by_date
 
-    POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/
-    FH::Company
+###### Availabilities By Date Range
 
-    GET /companies/<shortname>/bookings/<Booking.uuid>/
-    FH::Company.bookings
+    Endpoint: GET /companies/<shortname>/items/<item.pk>/availabilities/date-range/<start-date>/<end-date>/
+    Method:   FH::Company.availabilities_by_date_range
 
-    DELETE /companies/<shortname>/bookings/<Booking.uuid>/
-    FH::Company
+###### Availabilities
 
-    POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/validate/
-    FH::Company
+    Endpoint: GET /companies/<shortname>/availabilities/<Availability.pk>/
+    Method:   FH::Company.availabilities
+
+###### Create A Booking
+
+    Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/
+    Method:   FH::Company
+
+###### Bookings
+
+    Endpoint: GET /companies/<shortname>/bookings/<Booking.uuid>/
+    Method:   FH::Company.bookings
+
+###### Delete A Booking
+
+    Endpoint: DELETE /companies/<shortname>/bookings/<Booking.uuid>/
+    Method:   FH::Company
+
+###### Validate A Booking
+
+    Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/validate/
+    Method:   FH::Company
+
+## Troubleshooting
+
+Some methods refer to `Companies` while others refer to `Company`.  Please double-check the documentation above to ensure your syntax is correct.
 
 ## Development
 
