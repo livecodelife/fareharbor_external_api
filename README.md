@@ -1,6 +1,7 @@
 # FareharborExternalApi
 
-## Installation
+
+# Installation
 
 Add this line to your application's Gemfile:
 
@@ -16,17 +17,17 @@ Or install it yourself as:
 
     $ gem install fareharbor_external_api
 
-## Setup
+# Setup
 
-### Requesting Access
+## Requesting Access
 
 To get started with the FareHarbor External API Gem, you will need to request access keys from FareHarbor. Please contact <support@fareharbor.com> to request access to the FareHarbor External API.
 
-### Setting Up Your Access Keys
+## Setting Up Your Access Keys
 
 Once you have your access keys, you will need to set them as environment variables to work with the gem.  Below are two options for setting your environment variables.
 
-#### For Use in Production
+### For Use in Production
 
 We recommend using the Figaro gem to set your environment variables.  Follow the directions to set your keys [here.](https://github.com/laserlemon/figaro#example)
 
@@ -37,7 +38,7 @@ In your application.yml file, set your keys like this:
 
 Your key names must match the above key names exactly.  Once you are done, make sure you add application.yml to your .gitignore file to keep your keys hidden!
 
-#### For Local Use
+## For Local Use
 
 You can either set your keys using the Figaro gem (instructions above) or inside your bash profile.  To set your keys inside your bash profile, open your bash profile and add the following lines:
 
@@ -51,7 +52,7 @@ To save your changes, enter the following in your command line:
     source ~/.bash_profile
 
 
-## Usage
+# Usage
 
 The FareHarbor External API Gem is a wrapper for the FareHarbor External API.  Each endpoint of the API returns data for companies associated with an affiliate or that the API-user has permission to access.
 
@@ -59,7 +60,7 @@ All endpoints are rooted at `https://fareharbor.com/api/external/v1/`.
 
 To see the full JSON output that each endpoint returns, please visit our [endpoint documentation.](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md)
 
-### Primary Usage and Finding a Company
+## Primary Usage and Finding a Company
 
 To access a single affiliate company, you can use the find method. This will return a single company object.  The find method accepts the company 'shortname' as an argument passed in as a string. For ease of use, it is recommended that you save the result to a variable.
 
@@ -82,11 +83,11 @@ A Company has the following attributes which can be accessed by calling them as 
 
 Please see the 'Endpoints and Methods' sections below for a full list of endpoints and their corresponding methods to retrieve data.
 
-### Endpoints and Methods
+## Endpoints and Methods
 
 Use the methods below to easily consume endpoint data from the FareHarbor External API.  Please note that in all methods below `company` refers to a Company object.  For more information on how to instantiate a company object, please visit the 'Primary Usage section.'
 
-#### All Companies
+### All Companies
 
     Endpoint: GET /companies/
 
@@ -96,7 +97,7 @@ Returns an array of Company objects; note that this may include companies that h
 
 You can find the API information for all companies [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#companies).
 
-#### Lodgings
+### Lodgings
 
     Endpoint: GET /companies/<shortname>/lodgings/
 
@@ -117,7 +118,7 @@ A Lodging has the follwing attributes which can be accessed by calling them as m
 
 You can find the API information for all lodgings [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#lodgings).
 
-#### Availability Lodgings
+### Availability Lodgings
 
     Endpoint: GET /companies/<shortname>/availabilities/<availability.pk>/lodgings/
 
@@ -139,7 +140,7 @@ A Lodging has the following attributes which can be accessed by calling them as 
 
 You can find the API information for all availability lodgings [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#availability-lodgings).
 
-#### Items
+### Items
 
     Endpoint: GET /companies/<shortname>/items/
 
@@ -169,7 +170,7 @@ An Item has the following attributes which can be accessed by calling them as me
 You can find the API information for all items [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#items).
 
 
-#### Availabilities
+### Availabilities
 
 
 **Single Availability**
@@ -211,7 +212,7 @@ An Availability has the following attributes which can be accessed by calling th
 You can find the API information for all availabilities [here](https://github.com/FareHarbor/fareharbor-docs/blob/master/external-api/endpoints.md#availabilities).
 
 
-#### Bookings
+### Bookings
 
 The following booking methods each return a Booking object.
 
@@ -241,7 +242,7 @@ A Booking has the following attributes which can be accessed by calling them as 
         booking.availability
         booking.voucher_number
 
-###### Find A Single Booking
+##### Find A Single Booking
 
     Endpoint: GET /companies/<shortname>/bookings/<Booking.uuid>/
 
@@ -249,7 +250,7 @@ A Booking has the following attributes which can be accessed by calling them as 
 
 Booking method accepts booking 'uuid' as an argument passed in as a string.
 
-###### Create And Validate A Booking
+##### Create And Validate A Booking
 
 **Create a Booking:**
 
@@ -279,7 +280,7 @@ These post requests accept a hash as an argument in the following format:
 Please note the class of each value in the hash.  Also note that customer type rates are represented by an array of integers.
 
 
-###### Delete A Booking
+##### Delete A Booking
 
     Endpoint: DELETE /companies/<shortname>/bookings/<Booking.uuid>/
 
