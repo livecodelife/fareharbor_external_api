@@ -86,9 +86,9 @@ Use the methods below to easily consume endpoint data from the FareHarbor Extern
 
 ##### All Companies
 
-    Endpoint: `GET /companies/`
+    Endpoint: GET /companies/
 
-    Method:   `FH::Companies.all`
+    Method:   FH::Companies.all
 
 Returns an array of Company objects; note that this may include companies that have no bookable availabilities. You can call methods on each Company object to return specific company data.  For more information on how to use a single Company object, please see 'Primary Usage'.
 
@@ -169,7 +169,8 @@ You can find the API information for all items [here](https://github.com/FareHar
 
 ##### Availabilities
 
-    **Find Single Availability**
+
+**Single Availability**
 
     Endpoint: GET /companies/<shortname>/availabilities/<Availability.pk>/
 
@@ -177,13 +178,13 @@ You can find the API information for all items [here](https://github.com/FareHar
 
 Returns an Availability object.
 
-    **Availabilities By Date:**
+**Availabilities By Date:**
 
     Endpoint: GET /companies/<shortname>/items/<item.pk>/availabilities/date/<date>/
 
     Method:   company.availabilities_by_date({pk: <availability pk>, date: '<availability date>'})
 
-    **Availabilities By Date Range:**
+**Availabilities By Date Range:**
 
     Endpoint: GET /companies/<shortname>/items/<item.pk>/availabilities/date-range/<start-date>/<end-date>/
 
@@ -248,13 +249,13 @@ Booking method accepts booking 'uuid' as an argument passed in as a string.
 
 ###### Create And Validate A Booking
 
-    **Create a Booking:**
+**Create a Booking:**
 
     Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/
 
     Method:   company.post_booking(booking_data)
 
-    **Validate a Booking:**
+**Validate a Booking:**
 
     Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/validate/
 
@@ -273,7 +274,7 @@ These post requests accept a hash as an argument in the following format:
         voucher_number: '<voucher number (string)'
       }
 
-Please note the class of each argument.  Also note that customer type rates are represented by an array of integers.
+Please note the class of each value in the hash.  Also note that customer type rates are represented by an array of integers.
 
 
 ###### Delete A Booking
@@ -291,6 +292,8 @@ You can find the API information for all bookings [here](https://github.com/Fare
 Some methods refer to `Companies` while others refer to `Company`.  Please double-check the documentation above to ensure your syntax is correct.
 
 Many methods take a hash as an argument.  Check the documentation above to make sure you are inputting your arguments correctly, and have included all the necessary arguments and formatted them correctly.
+
+If you are having difficult setting your environment variables, make sure they are properly working by first testing them out in Postman.
 
 ## Development
 
