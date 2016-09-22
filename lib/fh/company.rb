@@ -7,10 +7,6 @@ module FH
       @shortname = company[:shortname]
     end
 
-    def service
-      FareHarborService.new
-    end
-
     def items
       items = service.get_items(shortname)
       items[:items].map { |item| FH::Company::Item.new(item) }
@@ -18,12 +14,12 @@ module FH
 
     def availabilities_by_date(availability_data)
       availabilities = service.get_availabilities_by_date(shortname, availability_data)
-      availabilities[:availabilities].map { |availability| FH::Company::Availability.new(availability) }
+      build_availabilities(availabilities[:availabilities])
     end
 
     def availabilities_by_date_range(availability_data)
       availabilities = service.get_availabilities_by_date_range(shortname, availability_data)
-      availabilities[:availabilities].map { |availability| FH::Company::Availability.new(availability) }
+      build_availabilities(availabilities[:availabilities])
     end
 
     def availability(pk)
@@ -33,22 +29,22 @@ module FH
 
     def booking(uuid)
       booking = service.get_booking(shortname, uuid)
-      FH::Company::Booking.new(booking[:booking])
+      build_booking(booking[:booking])
     end
 
     def lodgings
       lodgings = service.get_lodgings(shortname)
-      create_lodgings(lodgings)
+      build_lodgings(lodgings[:lodgings])
     end
 
     def availability_lodgings(pk)
       lodgings = service.get_availability_lodgings(shortname, pk)
-      create_lodgings(lodgings)
+      build_lodgings(lodgings[:lodgings])
     end
 
     def create_booking(booking_request)
       booking = service.post_booking(booking_request)
-      FH::Company::Booking.new(booking[:booking])
+      build_booking(booking[:booking])
     end
 
     def verify_booking(booking_data)
@@ -58,13 +54,25 @@ module FH
 
     def cancel_booking(uuid)
       cancelled_booking = service.delete_booking(shortname, uuid)
-      FH::Company::Booking.new(cancelled_booking[:booking])
+      build_booking(cancelled_booking[:booking])
     end
 
-  private
+    private
 
-    def create_lodgings(lodgings)
-      lodgings[:lodgings].map { |lodging| FH::Company::Lodging.new(lodging) }
+    def service
+      FareHarborService.new
+    end
+
+    def build_lodgings(lodgings)
+      lodgings.map { |lodging| FH::Company::Lodging.new(lodging) }
+    end
+
+    def build_booking(booking)
+      FH::Company::Booking.new(booking)
+    end
+
+    def build_availabilities(availabilities)
+      availabilities.map { |availability| FH::Company::Availability.new(availability) }
     end
   end
 end
