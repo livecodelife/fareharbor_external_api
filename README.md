@@ -177,7 +177,7 @@ You can find the API information for all items [here](https://github.com/FareHar
 
     Endpoint: GET /companies/<shortname>/availabilities/<Availability.pk>/
 
-    Method:   company.availabilities
+    Method:   company.availability(<availability pk>, <company shortname>)
 
 Returns an Availability object.
 
@@ -296,17 +296,7 @@ Some methods refer to `Companies` while others refer to `Company`.  Please doubl
 
 Many methods take a hash as an argument.  Check the documentation above to make sure you are inputting your arguments correctly, and have included all the necessary arguments and formatted them correctly.
 
-If you are having difficult setting your environment variables, make sure they are properly working by first testing them out in Postman.
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/fareharbor_external_api.
+If you are having difficulty setting your environment variables, make sure they are properly working by first testing them out in Postman.
 
 
 ## License
