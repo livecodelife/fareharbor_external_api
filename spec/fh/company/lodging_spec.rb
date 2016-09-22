@@ -23,5 +23,6 @@ describe FH::Company::Lodging do
     expect(lodging.phone).to eq "(808) 943-0202"
     expect(lodging.address).to eq "440 Olohana St Honolulu, HI 96815"
     expect(lodging.pk).to eq 231
+    expect(lodging.is_pickup_available).to eq nil
   end
 end

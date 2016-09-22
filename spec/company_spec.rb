@@ -70,6 +70,7 @@ describe FH::Company do
     expect(lodging.class).to eq FH::Company::Lodging
     expect(lodging.name).to eq 'Alii Cove'
     expect(lodging.pk).to eq 555
+    expect(lodging.is_pickup_available).to eq nil
   end
 
   it 'retrieves lodgings for an availability' do
@@ -81,6 +82,7 @@ describe FH::Company do
     expect(availability_lodging.class).to eq FH::Company::Lodging
     expect(availability_lodging.name).to eq 'WorldMark by Wyndham'
     expect(availability_lodging.pk).to eq 637
+    expect(availability_lodging.is_pickup_available).to eq false
   end
 
   it 'creates a booking' do
