@@ -16,12 +16,12 @@ describe FH::Company::Availability do
       end_at: "2015-01-22T13:30:00-1000"
      )
 
-    expect(availability).to respond_to :capacity
-    expect(availability).to respond_to :customer_type_rates
-    expect(availability).to respond_to :custom_field_instances
-    expect(availability).to respond_to :item
-    expect(availability).to respond_to :pk
-    expect(availability).to respond_to :start_at
-    expect(availability).to respond_to :end_at
+    expect(availability.capacity).to eq 10
+    expect(availability.customer_type_rates).to eq [15, 10]
+    expect(availability.custom_field_instances).to eq ""
+    expect(availability.item).to eq({ pk: 1867, name: "do the thing" })
+    expect(availability.pk).to eq 4787
+    expect(availability.start_at).to eq "2015-01-22T11:30:00-1000"
+    expect(availability.end_at).to eq "2015-01-22T13:30:00-1000"
   end
 end
