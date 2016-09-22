@@ -29,7 +29,7 @@ module FH
 
     def booking(uuid)
       booking = service.get_booking(shortname, uuid)
-      FH::Company::Booking.new(booking[:booking])
+      build_booking(booking[:booking])
     end
 
     def lodgings

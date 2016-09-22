@@ -256,13 +256,13 @@ Booking method accepts booking 'uuid' as an argument passed in as a string.
 
     Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/
 
-    Method:   company.post_booking(booking_data)
+    Method:   company.create_booking(booking_data)
 
 **Validate a Booking:**
 
     Endpoint: POST /companies/<shortname>/availabilities/<Availability.pk>/bookings/validate/
 
-    Method:   company.post_verify_booking(booking_data)
+    Method:   company.verify_booking(booking_data)
 
 These post requests accept a hash as an argument in the following format:
 
